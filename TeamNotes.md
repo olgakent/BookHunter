@@ -1,4 +1,4 @@
-<strong>Team Notes:</strong>
+<strong><h1>Team Notes:</h1></strong>
 
 Wireframe:
 1. Registration Page / Sign up  
