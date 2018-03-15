@@ -1,6 +1,6 @@
 <h1>What is BookHunter?</h1>
 
-BookHunter is a platform exclusive to Hunter College students that allows the for listing and exchanging of textbooks relating to your course work. BookHunter was created to alleviate stress associated with getting ready for a new semester. 
+BookHunter is a platform exclusive to Hunter College students that allows the for listing and exchanging of textbooks relating to your course work. BookHunter was created to alleviate stress associated with getting ready for a new semester.
 
 Registered students are able to:
 
@@ -25,5 +25,4 @@ Matthew Vardi
 Tony Jiang      
 Yossef Cohen     
 
-How do you perform an exchange?
-TBA - Pending video/gif
+s
