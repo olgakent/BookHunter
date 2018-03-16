@@ -25,4 +25,5 @@ Matthew Vardi
 Tony Jiang      
 Yossef Cohen     
 
-s
+How do you perform an exchange?  
+-TBA - Pending video/gif . 
