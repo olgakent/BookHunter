@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const passportLocal = require('passport-local-mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new mongoose.Schema({
 	first: String,
@@ -10,6 +10,6 @@ const UserSchema = new mongoose.Schema({
 	// wishlist: [{title: String, author: String}]
 });
 
-UserSchema.plugin(passportLocal);
+UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', UserSchema);
