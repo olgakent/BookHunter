@@ -20,14 +20,14 @@ router.get('/signup', (req, res) => {
 router.post('/signup', (req, res) => {
 	var newUser = new User(
 	{
-		first: req.body.first_name, 
-		last: req.body.last_name, 
+		first: req.body.first_name,
+		last: req.body.last_name,
 		username: req.body.username
 	});
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
 			// Need to alert user if email has already been used
-			return res.render('signup');	
+			return res.render('signup');
 		}
 		passport.authenticate('local')(req, res, function(){
 			res.redirect('login');
@@ -42,7 +42,9 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-router.post('/login', passport.authenticate('local', 
+
+
+router.post('/login', passport.authenticate('local',
 	{
 		successRedirect: '/', // Should redirect to books page when implemented
 		failureRedirect: 'login'
@@ -57,5 +59,14 @@ router.get("/logout", function(req, res) {
 	res.redirect("/login");
 });
 
+// All Books route
+router.get('/allbooks', (req, res) => {
+  res.render('allbooks');
+});
+
+// Help Page route
+router.get('/help', (req, res) => {
+  res.render('help');
+});
 
 module.exports = router;
