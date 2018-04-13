@@ -3,7 +3,9 @@ body,
 header,
 #intro,
 #signup,
-#login {
+#login,
+#allbooks,
+#helppage {
     height: 100%;
 }
 
@@ -25,6 +27,22 @@ header,
 
 #login {
     background: url("/img/login_background.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#allbooks {
+    background: url("/img/allbooks_background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#helppage {
+    background: url("/img/helppage_background.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
