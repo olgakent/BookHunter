@@ -1,45 +1,44 @@
-<!-- Intro Section: BookHunter -->
-<div id="intro" class="view">
-     <div class="container-fluid full-bg-img rgba-black-light d-flex align-items-center justify-content-center">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-6 text-center back">
-
-                <h2 class="display-3 font-bold white-text mb-2">BookHunter</h2>
-
-                <hr class="hr-light">
-                <!-- Description -->
-                <h4 class="white-text my-4">BookHunter is a platform exclusive to Hunter College students that allows the for listing and exchanging of textbooks relating to your course work. BookHunter was created to alleviate stress associated with getting ready for a new semester.</h4>
-                <a href="#about" class="btn btn-outline-white waves-effect waves-light">Learn more<i class="fa fa-book ml-2"></i></a>
-            </div>
-        </div>
-
-     </div>
-</div>
-<!-- Intro Section: BookHunter  -->
-
-<div id="allbooks" class="view full-page-intro">
-    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+<div id="allbooks">
+    <div class="justify-content-center align-items-center">
         <div class="container">
-            <div class="row wow fadeIn">
-                <div class="col-md-3"></div>
+                
                 <!-- Center -->
                 <div class="col-md-12">
                     <!-- Card -->
-
                     <div class="card">
                         <div class="card-body">
                             <p class="h4 text-center mb-4"><strong>View all Available Books!</strong></p>
-                            <p class="card-text"> Use this area to hunt for your books! </p>
+                            
+
+                            <!-- Search bar -->
+                            <div class="search-bar">
+                                <form class="form-inline">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+                                </form>
+                                <p></p>
+                            </div>
+
+
                             <div class="allbooks">
-                              <!-- This area will populate the books that users claim they have in possesion -->
-                              <!-- Dummy class: allbooks -->
+                            <!-- This area will populate the books that users claim they have in possesion -->
+                                <div class="card-deck">
+                                    {{#each users}}
+                                        {{#library}}
+                                        <!-- Create card for a book -->
+                                            <div class="col-sm-3">
+                                                <div class="card mb-3">
+                                                    <img class="img-fluid" src={{thumbnail}}>
+                                                </div>
+                                            </div>
+                                        {{/library}}
+                                    {{/each}}
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6"></div>
-            </div>
         </div>
     </div>
 </div>

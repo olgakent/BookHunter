@@ -39,6 +39,8 @@ header,
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    padding-top: 12vh;
+
 }
 
 #helppage {
