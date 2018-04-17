@@ -5,7 +5,9 @@ header,
 #signup,
 #login,
 #allbooks,
-#helppage {
+#helppage,
+#profile,
+#dashboard {
     height: 100%;
 }
 
@@ -49,4 +51,27 @@ header,
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+#profile{
+    background: url("/img/profile.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#dashboard {
+    background: url("/img/dashboard.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.hide-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0px;
 }

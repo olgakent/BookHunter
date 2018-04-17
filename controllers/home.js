@@ -26,23 +26,23 @@ router.post('/signup', (req, res) => {
 		username: req.body.username,
 		library: [
 			{
-				title: "Fred", 
-				author: "Anne", 
+				title: "Fred the Lonely Monster",
+				author: "Anne Lowinsky",
 				thumbnail: "https://about.canva.com/wp-content/uploads/sites/3/2015/01/children_bookcover.png"
 			},
 			{
-				title: "Game", 
-				author: "George", 
+				title: "A Game of Thrones",
+				author: "George R.R. Martin",
 				thumbnail: "https://www.rachelneumeier.com/wp-content/uploads/2013/05/GameOfThrones1.jpg"
 			},
 			{
 				title: "Jurassic Park",
-				author: "Mike",
+				author: "Michael Crichton",
 				thumbnail: "https://shortlist.imgix.net/app/uploads/2012/06/24225443/the-50-coolest-book-covers-37.jpg"
 			},
 			{
-				title: "Goosebumps",
-				author: "Stine",
+				title: "Goosebumps Night of the Living Dummy",
+				author: "R.L. Stine",
 				thumbnail: "https://d2rd7etdn93tqb.cloudfront.net/wp-content/uploads/2015/10/night-of-the-living-dummy-goosebumps-book-covers.jpg"
 			}
 			]
@@ -57,6 +57,7 @@ router.post('/signup', (req, res) => {
 		});
 	});
 });
+
 
 
 
@@ -98,4 +99,13 @@ router.get('/help', (req, res) => {
   res.render('help');
 });
 
+// Testing profile page
+router.get('/profile', (req, res) => {
+  res.render('profile');
+});
+
+// Testing dashboard page
+router.get('/dashboard', (req, res) => {
+  res.render('dashboard');
+});
 module.exports = router;
