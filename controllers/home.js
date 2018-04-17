@@ -2,8 +2,9 @@ const express = require('express');
 //const models = require('../models');
 const User = require('../models/user');
 const passport = require('passport');
-
 const router = express.Router();
+
+
 
 // Define a route to the root of the application.
 router.get('/', (req, res) => {
@@ -22,7 +23,29 @@ router.post('/signup', (req, res) => {
 	{
 		first: req.body.first_name,
 		last: req.body.last_name,
-		username: req.body.username
+		username: req.body.username,
+		library: [
+			{
+				title: "Fred the Lonely Monster", 
+				author: "Anne Lowinsky", 
+				thumbnail: "https://about.canva.com/wp-content/uploads/sites/3/2015/01/children_bookcover.png"
+			},
+			{
+				title: "A Game of Thrones", 
+				author: "George R.R. Martin", 
+				thumbnail: "https://www.rachelneumeier.com/wp-content/uploads/2013/05/GameOfThrones1.jpg"
+			},
+			{
+				title: "Jurassic Park",
+				author: "Michael Crichton",
+				thumbnail: "https://shortlist.imgix.net/app/uploads/2012/06/24225443/the-50-coolest-book-covers-37.jpg"
+			},
+			{
+				title: "Goosebumps Night of the Living Dummy",
+				author: "R.L. Stine",
+				thumbnail: "https://d2rd7etdn93tqb.cloudfront.net/wp-content/uploads/2015/10/night-of-the-living-dummy-goosebumps-book-covers.jpg"
+			}
+			]
 	});
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
@@ -61,7 +84,13 @@ router.get("/logout", function(req, res) {
 
 // All Books route
 router.get('/allbooks', (req, res) => {
-  res.render('allbooks');
+	User.find({}, function(err, allUsers) {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("allbooks", {users: allUsers});
+		}
+	});
 });
 
 // Help Page route

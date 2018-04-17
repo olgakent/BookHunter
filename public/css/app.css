@@ -39,6 +39,8 @@ header,
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    padding-top: 12vh;
+
 }
 
 #helppage {
@@ -47,4 +49,11 @@ header,
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.hide-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0px;
 }
