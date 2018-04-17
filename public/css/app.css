@@ -50,3 +50,10 @@ header,
     -o-background-size: cover;
     background-size: cover;
 }
+
+.hide-text {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0px;
+}
