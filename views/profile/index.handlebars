@@ -1,0 +1,82 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top scrolling-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="./">
+        <img src="http://www.iconninja.com/files/640/938/346/note-book-icon.png" height="50" alt="">
+      </a>
+        <a class="navbar-brand font-weight-bold " href="./">BookHunter</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto smooth-scroll">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allbooks">All Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/help">Help</a>
+                    </li>
+                </ul>
+                <!-- Right -->
+                <ul class="nav navbar-nav ml-auto smooth-scroll">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{cur_user.username}}</a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-unique" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="#">Settings</a>
+                      <a class="dropdown-item" href="/logout">Log Out</a>
+                    </div>
+                  </li>
+                </ul>
+        </div>
+
+    </div>
+
+</nav>
+<!--Navbar-->
+
+
+<div id="profile" class="view full-page-intro">
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row wow fadeIn">
+                <div class="col-md-3"></div>
+                <!-- Center -->
+                <div class="col-md-6">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Add a book</h4>
+                          <div class="container">
+
+                            <!-- Book input form -->
+                            <div class="md-form">
+                               <div class="row">
+                                  <i class="fa fa-book prefix"></i>
+                                  <input type="text" id="inputIconEx1" class="form-control">
+                                  <label for="inputIconEx1">Type the name of the book</label>
+                                </div>
+                                <div class="row text-center">
+                                  <div class="text-center">
+                                    <a href="/dashboard#my-books"    class="btn btn-outline-black waves-effect waves-dark">Add to Library</a>
+                                    <a href="/dashboard#my-wishlist" class="btn btn-outline-black waves-effect waves-dark">Add to Wish List</a>
+                                  </div>
+                                </div>
+                            </div>
+
+                          </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+    </div>
+</div>
