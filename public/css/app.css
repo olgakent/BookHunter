@@ -5,7 +5,8 @@ header,
 #signup,
 #login,
 #allbooks,
-#helppage {
+#helppage,
+#addbook {
     height: 100%;
 }
 
@@ -51,9 +52,36 @@ header,
     background-size: cover;
 }
 
+
+#profile {
+  min-height: 100%;
+  background: url("/img/profile.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#addbook{
+    background: url("/img/addbook.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .hide-text {
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
     font-size: 0px;
+}
+
+#profile-books {
+  margin: 100px 0px 0px 0px;
+}
+
+/* Buttons for addbook page */
+#book-input-buttons {
+  text-align: center;
 }

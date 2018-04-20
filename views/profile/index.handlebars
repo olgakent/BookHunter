@@ -1,0 +1,153 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top scrolling-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="./">
+        <img src="http://www.iconninja.com/files/640/938/346/note-book-icon.png" height="50" alt="">
+      </a>
+        <a class="navbar-brand font-weight-bold " href="./">BookHunter</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto smooth-scroll">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allbooks">All Books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/help">Help</a>
+                    </li>
+                </ul>
+                <!-- Right -->
+                <ul class="nav navbar-nav ml-auto smooth-scroll">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-unique" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="/profile">Profile</a>
+                      <a class="dropdown-item" href="#">Settings</a>
+                      <a class="dropdown-item" href="/logout">Log Out</a>
+                    </div>
+                  </li>
+                </ul>
+        </div>
+
+    </div>
+
+</nav>
+<!--Navbar-->
+
+<div id="profile" class="view hm-black-light">
+  <div class="full-bg-img flex-center">
+
+
+    <div id="profile-books" class="container-fluid">
+
+
+      <!-- My Books -->
+        <div id="my-books" class="container">
+          <div class="col-md-12">
+            <div class="mt-4 card " style="padding: 30px 20px 0px 20px;">
+              <!--Card header-->
+              <div class="card-header">
+
+                <div class="row ">
+                    <div class="col-md-6 mb-4">
+                      <h2 class="card-header-title blue-text pb-2"><i class="fa fa-book"></i> <strong>My Books</strong></h2>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <a href="/addbook">
+                          <h5 class="h5-responsive text-right blue-text">Add a Book  <i class="fa fa-plus-square blue-text"></i></h5>
+                        </a>
+                    </div>
+                </div>
+
+              </div>
+              <!--Card header-->
+
+              <!--Card content-->
+              <div class="card-body">
+
+                <!-- Books for testing purposes -->
+                <div id="book-grid">
+                <!-- This area will populate the books that users claim they have in possesion -->
+                    <div class="card-deck">
+                        {{#each users}}
+                            {{#library}}
+                            <!-- Create card for a book -->
+                                <div class="col-sm-2" id="book">
+                                    <a href="#">
+                                        <div class="card mb-3">
+                                            <img class="img-fluid" src={{thumbnail}}>
+                                            <span class="hide-text">{{title}} {{author}}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            {{/library}}
+                        {{/each}}
+                    </div>
+                </div>
+                <!-- Books for testing purposes -->
+              </div>
+              <!--Card content-->
+            </div>
+          </div>
+        </div>
+
+        <!-- My Wishlist -->
+          <div id="my-wishlist" class="container">
+            <div class="col-md-12">
+              <div class="mt-4 card " style="padding: 30px 20px 0px 20px;">
+                <!--Card header-->
+                <div class="card-header">
+
+                  <div class="row">
+                      <div class="col-md-6 mb-4">
+                        <h2 class="card-header-title blue-text pb-2"><i class="fa fa-book"></i> <strong>My Wishlist</strong></h2>
+                      </div>
+
+                  </div>
+
+                </div>
+                <!--Card header-->
+
+                <!--Card content-->
+                <div class="card-body">
+                  <!-- Books for testing purposes -->
+                  <div id="book-grid">
+                  <!-- This area will populate the books that users claim they have in possesion -->
+                      <div class="card-deck">
+                          {{#each users}}
+                              {{#wishlist}}
+                              <!-- Create card for a book -->
+                                  <div class="col-sm-2" id="book">
+                                      <a href="#">
+                                          <div class="card mb-3">
+                                              <img class="img-fluid" src={{thumbnail}}>
+                                              <span class="hide-text">{{title}} {{author}}</span>
+                                          </div>
+                                      </a>
+                                  </div>
+                              {{/wishlist}}
+                          {{/each}}
+                      </div>
+                  </div>
+                  <!-- Books for testing purposes -->
+
+                </div>
+                <!--Card content-->
+              </div>
+            </div>
+          </div>
+        <!-- My Wishlist -->
+
+
+    </div>
+
+  </div>
+</div>
