@@ -26,13 +26,13 @@ router.post('/signup', (req, res) => {
 		username: req.body.username,
 		library: [
 			{
-				title: "Fred the Lonely Monster", 
-				author: "Anne Lowinsky", 
+				title: "Fred the Lonely Monster",
+				author: "Anne Lowinsky",
 				thumbnail: "https://about.canva.com/wp-content/uploads/sites/3/2015/01/children_bookcover.png"
 			},
 			{
-				title: "A Game of Thrones", 
-				author: "George R.R. Martin", 
+				title: "A Game of Thrones",
+				author: "George R.R. Martin",
 				thumbnail: "https://www.rachelneumeier.com/wp-content/uploads/2013/05/GameOfThrones1.jpg"
 			},
 			{
@@ -45,8 +45,15 @@ router.post('/signup', (req, res) => {
 				author: "R.L. Stine",
 				thumbnail: "https://d2rd7etdn93tqb.cloudfront.net/wp-content/uploads/2015/10/night-of-the-living-dummy-goosebumps-book-covers.jpg"
 			}
-			]
-	});
+			],
+  wishlist:[
+    {
+      title: "Computer Architecture",
+      author: "David Patterson",
+      thumbnail: "https://lh3.googleusercontent.com/proxy/CzdVEzKtZqWZ3NTw16Wkf2WyrrVKBRqQba7nqjYdw3L89HCiAL6k78LOcRStvHinfiUjKqBjXDbkzUySu9WUACogsOfwU7g1g21SaR5s1MmN5A-62Axd5ZD0kQas2G_eUgN--S1HEysgNRN6ZVZYQ4qAeL1c2V8UPHQR8Pr-1kvWM7I7sa8=s500-pd-e365-pc0xffffff"
+    }
+  ]
+});
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
 			// Need to alert user if email has already been used
@@ -69,7 +76,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local',
 	{
-		successRedirect: '/', // Should redirect to books page when implemented
+		successRedirect: '/profile', // Should redirect to books page when implemented
 		failureRedirect: 'login'
 	}), (req, res) => {
 
@@ -98,4 +105,19 @@ router.get('/help', (req, res) => {
   res.render('help');
 });
 
+// Testing profile page
+router.get('/profile', (req, res) => {
+  User.find({}, function(err, allUsers) {
+    if(err) {
+      console.log(err);
+    } else {
+      res.render("profile", {users: allUsers});
+    }
+  });
+});
+
+// Testing Add Book page
+router.get('/addbook', (req, res) => {
+  res.render('addbook');
+});
 module.exports = router;
