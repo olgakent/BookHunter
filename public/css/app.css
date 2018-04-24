@@ -85,3 +85,7 @@ header,
 #book-input-buttons {
   text-align: center;
 }
+
+#name {
+    text-align: right;
+}
