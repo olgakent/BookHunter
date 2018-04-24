@@ -3,14 +3,13 @@ const express = require('express');
 const User = require('../models/user');
 const passport = require('passport');
 const router = express.Router();
-
+const nodemailer = require('nodemailer');
 
 
 // Define a route to the root of the application.
 router.get('/', (req, res) => {
   res.render('home');
 });
-
 
 
 // Sign up routes
@@ -105,6 +104,54 @@ router.get('/help', (req, res) => {
   res.render('help');
 });
 
+// Contact form submission route
+router.post('/send', (req, res) => {
+  const output = `
+		<p>You have a new contact request:</p>
+		<h3>Contact Details</h3>
+		<ul>
+			<li>Name: ${req.body.contact_name}</li>
+			<li>Email: ${req.body.contact_email}</li>
+			<li>Subject: ${req.body.contact_subject}</li>
+		</ul>
+		<h3>Message</h3>
+		<p>${req.body.contact_message}</p>
+	`;
+
+	// create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+          user: process.env.GMAIL_USER,
+          pass: process.env.GMAIL_PASS
+      }
+  });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+      from: '"Nodemailer Contact" <test@bookhunter.com', // sender address
+      to: 'bookhunter.huntercollege@gmail.com', // list of receivers
+      subject: 'New message from contact form at BookHunter.com', 
+      text: "Hello Boookhunter!",
+			html: output
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);
+      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+			// rerender our home page with message
+			res.render('home', {msg: "Thank you! Email has been sent."});
+  });
+
+});
+
 // Testing profile page
 router.get('/profile', (req, res) => {
   User.find({}, function(err, allUsers) {
@@ -120,4 +167,5 @@ router.get('/profile', (req, res) => {
 router.get('/addbook', (req, res) => {
   res.render('addbook');
 });
+
 module.exports = router;

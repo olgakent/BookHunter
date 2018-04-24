@@ -152,32 +152,31 @@
 
       <div class="row d-flex justify-content-center mb-4">
           <div class="col-md-8">
-
+              <h5 class="text-center blue-text">{{msg}}</h5>
               <!-- Form contact -->
-              <form class="p-6">
-
+              <form class="p-6" method="POST" action="send" >
                 <div class="md-form form-sm"> <i class="fa fa-user prefix grey-text"></i>
-                  <input type="text" id="form3" class="form-control form-control-sm">
+                  <input type="text" name="contact_name" id="form3" class="form-control form-control-sm">
                   <label for="form3">Your name</label>
                 </div>
 
                 <div class="md-form form-sm"> <i class="fa fa-envelope prefix grey-text"></i>
-                  <input type="text" id="form2" class="form-control form-control-sm">
+                  <input type="text" name="contact_email" id="form2" class="form-control form-control-sm">
                   <label for="form2">Your email</label>
                 </div>
 
                 <div class="md-form form-sm"> <i class="fa fa-tag prefix grey-text"></i>
-                  <input type="text" id="form32" class="form-control form-control-sm">
+                  <input type="text" name="contact_subject" id="form32" class="form-control form-control-sm">
                   <label for="form34">Subject</label>
                 </div>
 
                 <div class="md-form form-sm"> <i class="fa fa-pencil prefix grey-text"></i>
-                  <textarea type="text" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
+                  <textarea type="text" name="contact_message" id="form8" class="md-textarea form-control form-control-sm" rows="4"></textarea>
                   <label for="form8">Your message</label>
                 </div>
 
                 <div class="text-center mt-4">
-                  <button class="btn btn-primary">Send </button>
+                  <button type="submit" class="btn btn-primary">Send </button>
                 </div>
               </form>
               <!-- Form contact -->
