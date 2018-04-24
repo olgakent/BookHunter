@@ -52,10 +52,8 @@
                         <!-- Right -->
                         {{#if currentUser}}
                         <ul class="nav navbar-nav ml-auto smooth-scroll">
-                            <span id="name">{{currentUser.first}} {{currentUser.last}}</span>
                               <li class="nav-item dropdown">
-                                <span id="name">{{currentUser.first}} {{currentUser.last}}</span>
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>{{currentUser.first}} {{currentUser.last}}</a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-unique" aria-labelledby="navbarDropdownMenuLink">
                                   <a class="dropdown-item" href="/profile">Profile</a>
                                   <a class="dropdown-item" href="#">Settings</a>

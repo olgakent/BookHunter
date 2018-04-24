@@ -16,7 +16,7 @@ function isLoggedIn(req, res, next) {
 
 // Define a route to the root of the application.
 router.get('/', (req, res) => {
-  res.render('home');
+  res.render('home', {currentUser: req.user});
 });
 
 
@@ -102,14 +102,14 @@ router.get('/allbooks', isLoggedIn, (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
-			res.render("allbooks", {users: allUsers});
+			res.render("allbooks", {users: allUsers, currentUser: req.user});
 		}
 	});
 });
 
 // Help Page route
 router.get('/help', (req, res) => {
-  res.render('help');
+  res.render('help', {currentUser: req.user});
 });
 
 // Contact form submission route
@@ -173,7 +173,7 @@ router.get('/profile', isLoggedIn, (req, res) => {
 
 // Testing Add Book page
 router.get('/addbook', isLoggedIn, (req, res) => {
-  res.render('addbook');
+  res.render('addbook', {currentUser: req.user});
 });
 
 module.exports = router;
