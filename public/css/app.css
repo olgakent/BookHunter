@@ -77,6 +77,10 @@ header,
     font-size: 0px;
 }
 
+/* For the allbooks card to have margin */
+.card {
+  margin: 80px 0px 80px 0px;
+}
 #profile-books {
   margin: 100px 0px 0px 0px;
 }
