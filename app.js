@@ -1,12 +1,18 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 //const models = require('./models');
+const nodemailer = require('nodemailer');
+
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// load environment variables
+dotenv.load();
 
 // Database setup
 const mongoose = require('mongoose');
@@ -44,6 +50,7 @@ app.set('views', `${__dirname}/views/`);
 // Load all controllers
 const controllers = require('./controllers');
 app.use(controllers);
+
 
 // Start listening
 app.listen(PORT, () => {
