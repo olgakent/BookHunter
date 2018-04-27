@@ -1,14 +1,22 @@
 const express = require('express');
-//const models = require('../models');
-const User = require('../models/user');
-const passport = require('passport');
 const router = express.Router();
+const passport = require('passport');
+const User = require('../models/user');
 const nodemailer = require('nodemailer');
+
+
+function isLoggedIn(req, res, next) {
+	if(req.isAuthenticated()) {
+		next();
+	} else {
+		res.redirect("/login");
+	}
+}
 
 
 // Define a route to the root of the application.
 router.get('/', (req, res) => {
-  res.render('home');
+  res.render('home', {currentUser: req.user});
 });
 
 
@@ -89,19 +97,19 @@ router.get("/logout", function(req, res) {
 });
 
 // All Books route
-router.get('/allbooks', (req, res) => {
+router.get('/allbooks', isLoggedIn, (req, res) => {
 	User.find({}, function(err, allUsers) {
 		if(err) {
 			console.log(err);
 		} else {
-			res.render("allbooks", {users: allUsers});
+			res.render("allbooks", {users: allUsers, currentUser: req.user});
 		}
 	});
 });
 
 // Help Page route
 router.get('/help', (req, res) => {
-  res.render('help');
+  res.render('help', {currentUser: req.user});
 });
 
 // Contact form submission route
@@ -153,19 +161,19 @@ router.post('/send', (req, res) => {
 });
 
 // Testing profile page
-router.get('/profile', (req, res) => {
+router.get('/profile', isLoggedIn, (req, res) => {
   User.find({}, function(err, allUsers) {
     if(err) {
       console.log(err);
     } else {
-      res.render("profile", {users: allUsers});
+      res.render("profile", {users: allUsers, currentUser: req.user});
     }
   });
 });
 
 // Testing Add Book page
-router.get('/addbook', (req, res) => {
-  res.render('addbook');
+router.get('/addbook', isLoggedIn, (req, res) => {
+  res.render('addbook', {currentUser: req.user});
 });
 
 module.exports = router;

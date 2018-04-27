@@ -50,6 +50,18 @@
                             </li>
                         </ul>
                         <!-- Right -->
+                        {{#if currentUser}}
+                        <ul class="nav navbar-nav ml-auto smooth-scroll">
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>{{currentUser.first}} {{currentUser.last}}</a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-unique" aria-labelledby="navbarDropdownMenuLink">
+                                  <a class="dropdown-item" href="/profile">Profile</a>
+                                  <a class="dropdown-item" href="#">Settings</a>
+                                  <a class="dropdown-item" href="/logout">Log Out</a>
+                                </div>
+                              </li>
+                        </ul>
+                        {{else}}
                         <ul class="nav navbar-nav ml-auto smooth-scroll">
                             <li class="nav-item">
                                 <a class="nav-link" href="/signup" >Sign Up</a>
@@ -58,6 +70,7 @@
                                 <a class="nav-link" href="/login" >Log In</a>
                             </li>
                         </ul>
+                        {{/if}}
                 </div>
 
             </div>
