@@ -4,6 +4,16 @@ const passport = require('passport');
 const User = require('../models/user');
 const nodemailer = require('nodemailer');
 
+// create reusable transporter object using the default SMTP transport
+const transporter = nodemailer.createTransport({
+		host: 'smtp.gmail.com',
+		port: 465,
+		secure: true,
+		auth: {
+				user: process.env.GMAIL_USER,
+				pass: process.env.GMAIL_PASS
+		}
+});
 
 function isLoggedIn(req, res, next) {
 	if(req.isAuthenticated()) {
@@ -26,6 +36,7 @@ router.get('/signup', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
+	// User registers for an account
 	var newUser = new User(
 	{
 		first: req.body.first_name,
@@ -53,32 +64,68 @@ router.post('/signup', (req, res) => {
 				thumbnail: "https://d2rd7etdn93tqb.cloudfront.net/wp-content/uploads/2015/10/night-of-the-living-dummy-goosebumps-book-covers.jpg"
 			}
 			],
-  wishlist:[
+  	wishlist:[
     {
       title: "Computer Architecture",
       author: "David Patterson",
       thumbnail: "https://lh3.googleusercontent.com/proxy/CzdVEzKtZqWZ3NTw16Wkf2WyrrVKBRqQba7nqjYdw3L89HCiAL6k78LOcRStvHinfiUjKqBjXDbkzUySu9WUACogsOfwU7g1g21SaR5s1MmN5A-62Axd5ZD0kQas2G_eUgN--S1HEysgNRN6ZVZYQ4qAeL1c2V8UPHQR8Pr-1kvWM7I7sa8=s500-pd-e365-pc0xffffff"
     }
   ]
-});
+	});
+	// Confirm new user's email address to avoid spam registration
+	var rand,mailOptions,host,link,email;
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
 			// Need to alert user if email has already been used
+			console.log(err);
 			return res.render('signup');
+		} else {
+			// A verification link is emailed to user
+			rand = Math.floor((Math.random() * 100) + 54);
+			host = req.get('host');
+			//host = "localhost:3000";
+			link ="http://"+host+"/verify?id="+rand;
+			// setup email data
+			email = {
+				to : req.body.username,
+				subject : "Bookhunter: Please confirm your Email account",
+				html : "Hello,<br> Please Click on the link to verify your email for Bookhunter account.<br><a href="+link+">Click here to verify</a>"
+			};
+			console.log(email);
+			// send mail with defined transport object
+			transporter.sendMail(email, (error, info) => {
+					if (error) {
+							return console.log(error);
+					}
+					console.log('Message sent: %s', info.messageId);
+			});
 		}
-		passport.authenticate('local')(req, res, function(){
-			res.redirect('login');
-		});
+		// Compare our stored ID (rand) with ID from URL
+    router.get('/verify', (req, res) => {
+	    console.log("verification...");
+	    // If they match then account is verified
+	    if(req.query.id == rand){
+	          console.log("email is verified");
+			      passport.authenticate('local');
+	          res.send('<h1>Email is successfully verified. You can now log in to Bookhunter.</h1>');
+	    // If they do not match then account is NOT verified
+	    } else {
+	          console.log("email is NOT verified");
+	          res.send('<h1>Bad Request</h1>');
+	          // return res.status(401).send({
+	          //    type: 'not-verified',
+	          //    msg: 'Your account has not been verified.'
+	          // });
+	    }
+    });
 	});
 });
-
 
 
 // Log in routes
 router.get('/login', (req, res) => {
   res.render('login');
 });
-
 
 
 router.post('/login', passport.authenticate('local',
@@ -126,22 +173,11 @@ router.post('/send', (req, res) => {
 		<p>${req.body.contact_message}</p>
 	`;
 
-	// create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-          user: process.env.GMAIL_USER,
-          pass: process.env.GMAIL_PASS
-      }
-  });
-
   // setup email data with unicode symbols
   let mailOptions = {
       from: '"Nodemailer Contact" <test@bookhunter.com', // sender address
       to: 'bookhunter.huntercollege@gmail.com', // list of receivers
-      subject: 'New message from contact form at BookHunter.com', 
+      subject: 'New message from contact form at BookHunter.com',
       text: "Hello Boookhunter!",
 			html: output
   };
