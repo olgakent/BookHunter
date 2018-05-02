@@ -1,8 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-//const models = require('./models');
 const nodemailer = require('nodemailer');
+const flash = require('connect-flash');
 
 
 const PORT = process.env.PORT || 3000;
@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(flash());
 
 // load environment variables
 dotenv.load();
@@ -34,6 +35,16 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// Flash messages
+app.use(function(req, res, next){
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
+	res.locals.warning = req.flash("warning");
+	next();
+});
+
+
 
 // Serve up static assets from public folder
 app.use(express.static('./public'));

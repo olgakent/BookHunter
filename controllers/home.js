@@ -6,10 +6,12 @@ const nodemailer = require('nodemailer');
 
 
 function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		next();
-	} else {
+	if(!req.isAuthenticated()) {
+		req.flash("error", "You must be logged in to do that.");
 		res.redirect("/login");
+	}
+	else{
+		next();
 	}
 }
 
@@ -63,8 +65,8 @@ router.post('/signup', (req, res) => {
 });
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
-			// Need to alert user if email has already been used
-			return res.render('signup');
+			req.flash("error", "A user with that email already exists.");
+			res.redirect('signup');
 		}
 		passport.authenticate('local')(req, res, function(){
 			res.redirect('login');
@@ -91,8 +93,9 @@ router.post('/login', passport.authenticate('local',
 
 
 // Log out route
-router.get("/logout", function(req, res) {
+router.get("/logout", isLoggedIn, function(req, res) {
 	req.logout();
+	req.flash("success", "Successfully logged out.");
 	res.redirect("/login");
 });
 
