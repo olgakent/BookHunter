@@ -28,10 +28,12 @@ router.get('/signup', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
+	var email = req.body.username.toLowerCase();
 	var newUser = new User(
 	{
 		first: req.body.first_name,
 		last: req.body.last_name,
+		// Need to make username(email) non case-sensitive
 		username: req.body.username,
 		library: [
 			{
@@ -86,7 +88,8 @@ router.get('/login', (req, res) => {
 router.post('/login', passport.authenticate('local',
 	{
 		successRedirect: '/profile', // Should redirect to books page when implemented
-		failureRedirect: 'login'
+		failureRedirect: 'login',
+		failureFlash: true
 	}), (req, res) => {
 
 });
