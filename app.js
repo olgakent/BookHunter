@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost/BookHunter');
 
 // User auth
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
 
 // Passport setup
 app.use(require('express-session')({
@@ -34,9 +34,26 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+passport.use(new LocalStrategy(User.authenticate()));
+// passport.use(new LocalStrategy(
+// 	function(username, password, done) {
+// 	    User.findByUsername(username, function (err, User) {
+// 	    	// error
+// 		    if (err) { return done(err); }
+// 		    // user not found
+// 		    if (!User) { return done(null, false); }
+// 		    // wrong password
+// 		    if (User.password != password) { return done(null, false); }
+// 		    //
+// 		    if (!User.verified) { return done(null, false); }
+// 		    // success
+// 		    return done(null, User);
+// 	    });
+//   }
+// ));
 
 // Flash messages
 app.use(function(req, res, next){
