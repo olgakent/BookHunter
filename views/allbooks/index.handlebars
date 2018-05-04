@@ -1,48 +1,51 @@
-<div id="allbooks">
-    <div class="justify-content-center align-items-center">
-        <div class="container">
-                
-                <!-- Center -->
-                <div class="col-md-12">
-                    <!-- Card -->
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="h4 text-center mb-4"><strong>View all Available Books!</strong></p>
-                            
+<div class="full-page-intro">
+  <div id="allbooks">
+      <div class="justify-content-center align-items-center">
+          <div class="container">
 
-                            <!-- Search bar -->
-                            <div class="search-bar">
-                                <form class="form-inline">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    <input class="form-control form-control-sm ml-3 w-75" id="input" type="text" placeholder="Search for a book" aria-label="Search" onkeyup="searchBooks()">
-                                </form>
-                                <p></p>
-                            </div>
+                  <!-- Center -->
+                  <div class="col-md-12">
+                      <!-- Card -->
+                      <div class="card" id = "cardmargin">
+                          <div class="card-body">
+                              <p class="h4 text-center mb-4">View all Available Books!</p>
 
-                            <div id="book-grid">
-                            <!-- This area will populate the books that users claim they have in possesion -->
-                                <div class="card-deck">
-                                    {{#each users}}
-                                        {{#library}}
-                                        <!-- Create card for a book -->
-                                            <div class="col-sm-3" id="book">
-                                                <a href="#">
-                                                    <div class="card mb-3">
-                                                        <img class="img-fluid" src={{thumbnail}}>
-                                                        <span class="hide-text">{{title}} {{author}}</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        {{/library}}
-                                    {{/each}}
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
+                              <!-- Search bar -->
+                              <div class="search-bar">
+                                  <form class="form-inline">
+                                      <i class="fa fa-search" aria-hidden="true"></i>
+                                      <input class="form-control form-control-sm ml-3 w-75" id="input" type="text" placeholder="Search for a book" aria-label="Search" onkeyup="searchBooks()">
+                                  </form>
+                                  <p></p>
+                              </div>
+
+                              <div id="book-grid">
+                              <!-- This area will populate the books that users claim they have in possesion -->
+                                  <div class="card-deck">
+                                      {{#each users}}
+                                          {{#library}}
+                                          <!-- Create card for a book -->
+                                              <div class="col-sm-3" id="book">
+                                                  <a href="#">
+                                                      <div class="card mb-3">
+                                                          <img class="img-fluid" src={{thumbnail}}>
+                                                          <span class="hide-text">{{title}} {{author}}</span>
+                                                      </div>
+                                                  </a>
+                                              </div>
+                                          {{/library}}
+                                      {{/each}}
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+  </div>
 </div>
+
 
 <script type="text/javascript" src="js/search.js"></script>
