@@ -1,109 +1,105 @@
-<div id="profile" class="view hm-black-light">
-  <div class="full-bg-img flex-center">
+<div id="profile"  class="view full-page-intro">
+    <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
 
+      <div class="container">
 
-    <div id="profile-books" class="container-fluid">
+          <!-- SEARCH FORM -->
+          <form action="/search" method="get">
+              <div class="form-group">
 
+                <!-- Grid row -->
+                <div class="form-row">
+                      <div class="col">
+                          <div class="md-form">
+                              <input type="text" name="title" class="change form-control" placeholder="Enter a book title that you want to add" >
+                          </div>
+                      </div>
+                </div>
 
-      <!-- My Books -->
-        <div id="my-books" class="container">
-          <div class="col-md-12">
-            <div class="mt-4 card " style="padding: 30px 20px 0px 20px;">
-              <!--Card header-->
-              <div class="card-header">
-
-                <div class="row ">
-                    <div class="col-md-6 mb-4">
-                      <h2 class="card-header-title blue-text pb-2"><i class="fa fa-book"></i> <strong>My Books</strong></h2>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <a href="/addbook">
-                          <h5 class="h5-responsive text-right blue-text">Add a Book  <i class="fa fa-plus-square blue-text"></i></h5>
-                        </a>
-                    </div>
+                <!-- Grid row -->
+                <div class="form-row">
+                    <button type="submit" class="btn btn-outline-white waves-effect waves-light">Search</button>
                 </div>
 
               </div>
-              <!--Card header-->
+          </form>
+          <!-- SEARCH FORM -->
 
-              <!--Card content-->
-              <div class="card-body">
 
-                <!-- Books for testing purposes -->
-                <div id="book-grid">
-                <!-- This area will populate the books that users claim they have in possesion -->
-                    <div class="card-deck">
-                        {{#each users}}
-                            {{#library}}
-                            <!-- Create card for a book -->
-                                <div class="col-sm-2" id="book">
-                                    <a href="#">
-                                        <div class="card mb-3">
-                                            <img class="img-fluid" src={{thumbnail}}>
-                                            <span class="hide-text">{{title}} {{author}}</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            {{/library}}
-                        {{/each}}
+          <!-- MY LIBRARY -->
+          <div id="mylibrary" class="container">
+            <div id="book" class="mt-4">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                      <div class="panel panel-default">
+                        <!-- PANEL HEADING -->
+                        <div class="panel-heading bg-main-color">
+                          <h2 class="font-bold white-text mb-2">My Library</h2>
+                        </div>
+                        <!-- PANEL HEADING -->
+
+                        <!-- PANEL BODY -->
+                        <div class="panel-body">
+                              <!-- TABLE OF BOOKS -->
+                              <table class="table table-striped table-hover font-bold white-text">
+                                <!-- TABLE HEADING -->
+                                <thead>
+                                  <tr>
+                                    <th>Title</th>
+                                    <th>Image</th> <!--image with a link to Google book description -->
+                                    <th>Authors</th>
+                                    <th>Remove this Book?</th>
+                                  </tr>
+                                </thead>
+                                <!-- TABLE HEADING -->
+
+                                <!-- TABLE BODY-->
+                                <tbody>
+                                  <tr>
+                                    <td>Computer Organization</a></td>
+                                    <td>
+                                      <a href="https://books.google.com/books/about/Computer_Organization_Isrd.html?hl=&id=UegBxZnbYKEC" target="_blank">
+                                      <img src="http://books.google.com/books/content?id=MtT6rbd6IxIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" alt=""></a>
+                                    </td>
+                                    <td>Lee Galloway</td>
+                                    <td>
+                                      <!-- <form action="/profile/removeBook/{{this.id}}" method="post"> -->
+                                       <!-- <button type="submit" class="btn btn-outline-white waves-effect waves-light">Search</button> -->
+                                        <input type="submit" class="btn btn-outline-white waves-effect waves-light" value="Remove">
+                                      <!-- </form> -->
+                                    </td>
+                                  </tr>
+                                  <!-- {{#each books}}
+                                    <tr>
+                                      <td><a href="{{this.link}}>" style="text-decoration: none;">{{this.title}}</a></td>
+                                      <td><img src={{this.thumbnail}} alt=""></td>
+                                      <td><img src={{this.authors}} alt=""></td>
+                                      <td>
+                                        <form action="/profile/removeBook/{{this.id}}" method="post">
+                                          <input type="submit" class="btn btn-outline-white waves-effect waves-light value="Remove">
+                                        </form>
+                                      </td>
+                                    </tr>
+                                  {{/each}} -->
+                                </tbody>
+                                <!-- TABLE BODY-->
+                              </table>
+                              <!-- TABLE OF BOOKS -->
+
+                        </div>
+                        <!-- PANEL BODY -->
+                      </div>
                     </div>
-                </div>
-                <!-- Books for testing purposes -->
-              </div>
-              <!--Card content-->
+                  </div>
+
+
+
             </div>
           </div>
+          <!-- MY LIBRARY -->
+
         </div>
-
-        <!-- My Wishlist -->
-          <div id="my-wishlist" class="container">
-            <div class="col-md-12">
-              <div class="mt-4 card " style="padding: 30px 20px 0px 20px;">
-                <!--Card header-->
-                <div class="card-header">
-
-                  <div class="row">
-                      <div class="col-md-6 mb-4">
-                        <h2 class="card-header-title blue-text pb-2"><i class="fa fa-book"></i> <strong>My Wishlist</strong></h2>
-                      </div>
-
-                  </div>
-
-                </div>
-                <!--Card header-->
-
-                <!--Card content-->
-                <div class="card-body">
-                  <!-- Books for testing purposes -->
-                  <div id="book-grid">
-                  <!-- This area will populate the books that users claim they have in possesion -->
-                      <div class="card-deck">
-                          {{#each users}}
-                              {{#wishlist}}
-                              <!-- Create card for a book -->
-                                  <div class="col-sm-2" id="book">
-                                      <a href="#">
-                                          <div class="card mb-3">
-                                              <img class="img-fluid" src={{thumbnail}}>
-                                              <span class="hide-text">{{title}} {{author}}</span>
-                                          </div>
-                                      </a>
-                                  </div>
-                              {{/wishlist}}
-                          {{/each}}
-                      </div>
-                  </div>
-                  <!-- Books for testing purposes -->
-
-                </div>
-                <!--Card content-->
-              </div>
-            </div>
-          </div>
-        <!-- My Wishlist -->
-
-
-    </div>
 
   </div>
 </div>

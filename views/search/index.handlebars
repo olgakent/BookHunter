@@ -1,0 +1,25 @@
+<div id="search">
+  <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+
+
+    <div class="container">
+        <div class="row mt-4 mb-4">
+
+            {{#each books}}
+              <div class="col-md-3 mb-4">
+                  <div class="card">
+                    <p class="card-header">{{this.title}}</p>
+                      <img class="center-block mt-4 mb-4" style="height: 168px; width: 128px; display: block;" src={{this.thumbnail}} alt="book image">
+                      <div class="card-block">
+                        <a href="#" class="card-link btn btn-primary btn-block">Add Book</a>
+                      </div>
+                  </div>
+              </div>
+            {{/each}}
+
+          </div>
+    </div>
+
+
+  </div>
+</div>

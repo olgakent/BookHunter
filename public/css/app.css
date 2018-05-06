@@ -55,7 +55,16 @@ header,
 
 #profile {
   min-height: 100%;
-  background: url("/img/profile.jpg") no-repeat center center;
+  background: url("/img/profile1.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#search {
+  min-height: 100%;
+  background: url("/img/profile1.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -88,4 +97,24 @@ header,
 /* Buttons for addbook page */
 #book-input-buttons {
   text-align: center;
+}
+
+/* White text input for search form on profile page */
+.change::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #ffffff;
+}
+.change:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #ffffff;
+    opacity: 1;
+}
+.change::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #ffffff;
+    opacity: 1;
+}
+.change:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #ffffff;
 }
