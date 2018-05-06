@@ -25,6 +25,18 @@ function isLoggedIn(req, res, next) {
 	}
 }
 
+function isVerified(req, res, next) {
+	// console.log(req.user.verified);
+	if(!req.user.verified) {
+		// console.log(req.user.verified);
+		req.logout();
+		req.flash("warning", "Please check your email to verify your account before logging in.");
+		res.redirect("/login");
+	} else {
+		next();
+	}
+}
+
 function usernameToLowerCase(req, res, next){
     req.body.username = req.body.username.toLowerCase();
     next();
@@ -45,10 +57,9 @@ router.get('/signup', (req, res) => {
 router.post('/signup', usernameToLowerCase, (req, res) => {
 	var newUser = new User(
 	{
-		// verified: false,
+		verified: false,
 		first: req.body.first_name,
 		last: req.body.last_name,
-		// Need to make username(email) non case-sensitive
 		username: req.body.username,
 		library: [
 			{
@@ -81,17 +92,23 @@ router.post('/signup', usernameToLowerCase, (req, res) => {
 	  	]
 	});
 	// Confirm new user's email address to avoid spam registration
-	var rand,mailOptions,host,link,email;
+	var mailOptions,host,link,email;
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
+			// req.flash("error", err);
 			req.flash("error", "A user with that email already exists.");
 			res.redirect('signup');
 		} else {
 			// A verification link is emailed to user
-			rand = Math.floor((Math.random() * 100) + 54);
 			host = req.get('host');
-			//host = "localhost:3000";
-			link ="http://"+host+"/verify?id="+rand;
+
+			// User ID is the database id
+			var userID = user.id;
+
+			// host = "localhost:3000";
+			
+			link ="http://"+host+"/verify/"+userID;
+
 			// setup email data
 			email = {
 				to : req.body.username,
@@ -108,23 +125,23 @@ router.post('/signup', usernameToLowerCase, (req, res) => {
 			req.flash("warning", "Please check your email to verify your account.")
 			res.redirect('login');
 		}
-		// Compare our stored ID (rand) with ID from URL
-	    router.get('/verify', (req, res) => {
-		    // If they match then account is verified
-		    if(req.query.id == rand){
-				  passport.authenticate('local');
-		          req.flash("success", "Email verification successful.")
-		          res.redirect('login');
-		    // If they do not match then account is NOT verified
-		    } else {
-		          // console.log("email is NOT verified");
-		          res.send('<h1>Bad Request</h1>');
-		          // return res.status(401).send({
-		          //    type: 'not-verified',
-		          //    msg: 'Your account has not been verified.'
-		          // });
-		    }
-	    });
+	});
+});
+
+router.get('/verify/:id', (req, res) => {
+	// Search database for user by the id
+	User.findById(req.params.id, function(err, foundUser){
+		if (err) {
+			req.flash("error", JSON.stringify(err));
+			res.redirect('login');
+		} else {
+			//if user exists, set their verified value to true
+			passport.authenticate('local');
+			foundUser.verified = true;
+			foundUser.save();
+			req.flash("success", "Email verification successful.")
+			res.redirect('/login');
+		}
 	});
 });
 
@@ -146,14 +163,14 @@ router.post('/login', usernameToLowerCase, passport.authenticate('local',
 
 
 // Log out route
-router.get("/logout", isLoggedIn, function(req, res) {
+router.get("/logout", function(req, res) {
 	req.logout();
 	req.flash("success", "Successfully logged out.");
 	res.redirect("/login");
 });
 
 // All Books route
-router.get('/allbooks', isLoggedIn, (req, res) => {
+router.get('/allbooks', isLoggedIn, isVerified, (req, res) => {
 	User.find({}, function(err, allUsers) {
 		if(err) {
 			console.log(err);
@@ -199,14 +216,14 @@ router.post('/send', (req, res) => {
       console.log('Message sent: %s', info.messageId);
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-			// rerender our home page with message
-			res.render('home', {msg: "Thank you! Email has been sent."});
+		// rerender our home page with message
+		res.render('home', {msg: "Thank you! Email has been sent."});
   });
 
 });
 
 // Testing profile page
-router.get('/profile', isLoggedIn, (req, res) => {
+router.get('/profile', isLoggedIn, isVerified, (req, res) => {
   User.find({}, function(err, allUsers) {
     if(err) {
       console.log(err);

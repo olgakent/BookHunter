@@ -38,22 +38,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 passport.use(new LocalStrategy(User.authenticate()));
-// passport.use(new LocalStrategy(
-// 	function(username, password, done) {
-// 	    User.findByUsername(username, function (err, User) {
-// 	    	// error
-// 		    if (err) { return done(err); }
-// 		    // user not found
-// 		    if (!User) { return done(null, false); }
-// 		    // wrong password
-// 		    if (User.password != password) { return done(null, false); }
-// 		    //
-// 		    if (!User.verified) { return done(null, false); }
-// 		    // success
-// 		    return done(null, User);
-// 	    });
-//   }
-// ));
+
+
 
 // Flash messages
 app.use(function(req, res, next){
