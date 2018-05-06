@@ -118,3 +118,11 @@ header,
     /* Internet Explorer 10-11 */
     color: #ffffff;
 }
+
+.card-header{
+  height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}

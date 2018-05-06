@@ -83,7 +83,7 @@ router.post('/signup', usernameToLowerCase, (req, res) => {
 			var userID = user.id;
 
 			// host = "localhost:3000";
-			
+
 			link ="http://"+host+"/verify/"+userID;
 
 			// setup email data
@@ -232,6 +232,68 @@ router.get('/search', isLoggedIn, (req, res) => {
       res.status(404).send('File Not Found!');
     }
   })
+});
+
+//ADD A BOOK TO USER'S LIBRARY
+router.post('/toLibrary',isLoggedIn, function(req,res){
+	var newBook = new Book({
+		book_id: req.body.book_id,
+		book_title: req.body.book_title,
+		book_link: req.body.book_link,
+	  book_thumbnail: req.body.book_thumbnail,
+		book_owner: req.user._id
+	});
+
+	newBook.save(function(err){
+		if(err){
+			console.log(err);
+		}
+		User.findById(req.user._id, function(err, foundUser){
+			if(err){
+				console.log(err);
+				return;
+			}
+			foundUser.library.push(newBook);
+			foundUser.save(function(err){
+				if(err){
+					console.log(err);
+					return;
+				}
+				res.redirect('/profile');
+			})
+		})
+	})
+});
+
+//ADD A BOOK TO USER'S WISHLIST
+router.post('/toWishlist',isLoggedIn, function(req,res){
+	var newBook = new Book({
+		book_id: req.body.book_id,
+		book_title: req.body.book_title,
+		book_link: req.body.book_link,
+	  book_thumbnail: req.body.book_thumbnail,
+		book_owner: req.user._id
+	});
+
+	newBook.save(function(err){
+		if(err){
+			console.log(err);
+		}
+		User.findById(req.user._id, function(err, foundUser){
+			if(err){
+				console.log(err);
+				return;
+			}
+			foundUser.wishlist.push(newBook);
+			foundUser.save(function(err){
+				if(err){
+					console.log(err);
+					return;
+				}
+				res.redirect('/profile');
+			})
+		})
+	})
 });
 
 module.exports = router;

@@ -5,20 +5,37 @@
     <div class="container">
         <div class="row mt-4 mb-4">
 
-            {{#each books}}
-              <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <p class="card-header">{{this.title}}</p>
-                      <img class="center-block mt-4 mb-4" style="height: 168px; width: 128px; display: block;" src={{this.thumbnail}} alt="book image">
-                      <div class="card-block">
-                        <a href="#" class="card-link btn btn-primary btn-block">Add Book</a>
-                      </div>
-                  </div>
-              </div>
-            {{/each}}
+          {{#each books}}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                  <p class="card-header">{{this.title}}</p>
+                    <img id="bookimage" class="center-block ml-4 mt-4 mb-4" style="height: 168px; width: 128px; display: block;" src={{this.thumbnail}} alt="book image">
+                    <div class="card-block">
 
-          </div>
-    </div>
+                      <form action="/toLibrary" method="post">
+                        <input type="hidden" name="book_id" value="{{this.id}}">
+                        <input type="hidden" name="book_title" value="{{this.title}}">
+                        <input type="hidden" name="book_link" value="{{this.link}}">
+                        <input type="hidden" name="book_thumbnail" value="{{this.thumbnail}}">
+                        <input type="submit" class="card-link btn btn-primary btn-block" value="Add Book to your Library">
+
+                        <!-- <a href="#" class="card-link btn btn-primary btn-block">Add Book</a> -->
+
+                      </form>
+                      <form action="/toWishlist" method="post">
+                        <input type="hidden" name="book_id" value="{{this.id}}">
+                        <input type="hidden" name="book_title" value="{{this.title}}">
+                        <input type="hidden" name="book_link" value="{{this.link}}">
+                        <input type="hidden" name="book_thumbnail" value="{{this.thumbnail}}">
+                        <input type="submit" class="card-link btn btn-success btn-block" value="Add Book to your Wishlist ">
+
+                        <!-- <a href="#" class="card-link btn btn-primary btn-block">Add Book</a> -->
+
+                      </form>
+                    </div>
+                </div>
+            </div>
+          {{/each}}
 
 
   </div>
