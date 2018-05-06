@@ -4,6 +4,7 @@ const Book = require('./book');
 const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
+	verified: Boolean,
 	first: String,
 	last: String,
 	username: String,
