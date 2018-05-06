@@ -184,31 +184,24 @@ router.get('/profile', isLoggedIn, (req, res) => {
 });
 
 // Testing Add Book page
-router.get('/addbook', isLoggedIn, (req, res) => {
-  res.render('addbook', {currentUser: req.user});
-});
+// router.get('/addbook', isLoggedIn, (req, res) => {
+//   res.render('addbook', {currentUser: req.user});
+// });
 
 // SEARCH ROUTE FOR BOOKS TO ADD THEM TO THE LIBRARY
 router.get('/search', isLoggedIn, (req, res) => {
   var title = req.query.title;
   // console.log(title);
-  books.search(title, {
-    field: "title",
-    offset: 0,
-    limit: 8,
-    type: 'books',
-    order: 'relevance',
-    lang: 'en'
-  }, function(error, results, apiResponse){
+  books.search(title, option, function(error, results, apiResponse){
     if(!error){
-			console.log(results);
+			//console.log(results);
       res.render('search', {
 				currentUser: req.user,
         title: req.query.title,
         books: results
       })
     } else {
-      console.log(error);
+      //console.log(error);
       res.status(404).send('File Not Found!');
     }
   })
