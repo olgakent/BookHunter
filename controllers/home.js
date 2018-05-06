@@ -16,11 +16,30 @@ const transporter = nodemailer.createTransport({
 });
 
 function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		next();
-	} else {
+	if(!req.isAuthenticated()) {
+		req.flash("error", "You must be logged in to do that.");
 		res.redirect("/login");
 	}
+	else{
+		next();
+	}
+}
+
+function isVerified(req, res, next) {
+	// console.log(req.user.verified);
+	if(!req.user.verified) {
+		// console.log(req.user.verified);
+		req.logout();
+		req.flash("warning", "Please check your email to verify your account before logging in.");
+		res.redirect("/login");
+	} else {
+		next();
+	}
+}
+
+function usernameToLowerCase(req, res, next){
+    req.body.username = req.body.username.toLowerCase();
+    next();
 }
 
 
@@ -35,10 +54,10 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
-router.post('/signup', (req, res) => {
-	// User registers for an account
+router.post('/signup', usernameToLowerCase, (req, res) => {
 	var newUser = new User(
 	{
+		verified: false,
 		first: req.body.first_name,
 		last: req.body.last_name,
 		username: req.body.username,
@@ -63,35 +82,39 @@ router.post('/signup', (req, res) => {
 				author: "R.L. Stine",
 				thumbnail: "https://d2rd7etdn93tqb.cloudfront.net/wp-content/uploads/2015/10/night-of-the-living-dummy-goosebumps-book-covers.jpg"
 			}
-			],
-  	wishlist:[
-    {
-      title: "Computer Architecture",
-      author: "David Patterson",
-      thumbnail: "https://lh3.googleusercontent.com/proxy/CzdVEzKtZqWZ3NTw16Wkf2WyrrVKBRqQba7nqjYdw3L89HCiAL6k78LOcRStvHinfiUjKqBjXDbkzUySu9WUACogsOfwU7g1g21SaR5s1MmN5A-62Axd5ZD0kQas2G_eUgN--S1HEysgNRN6ZVZYQ4qAeL1c2V8UPHQR8Pr-1kvWM7I7sa8=s500-pd-e365-pc0xffffff"
-    }
-  ]
+		],
+	  	wishlist:[
+		    {
+		      title: "Computer Architecture",
+		      author: "David Patterson",
+		      thumbnail: "https://lh3.googleusercontent.com/proxy/CzdVEzKtZqWZ3NTw16Wkf2WyrrVKBRqQba7nqjYdw3L89HCiAL6k78LOcRStvHinfiUjKqBjXDbkzUySu9WUACogsOfwU7g1g21SaR5s1MmN5A-62Axd5ZD0kQas2G_eUgN--S1HEysgNRN6ZVZYQ4qAeL1c2V8UPHQR8Pr-1kvWM7I7sa8=s500-pd-e365-pc0xffffff"
+		    }
+	  	]
 	});
 	// Confirm new user's email address to avoid spam registration
-	var rand,mailOptions,host,link,email;
+	var mailOptions,host,link,email;
 	User.register(newUser, req.body.password, function(err, user) {
 		if(err) {
-			// Need to alert user if email has already been used
-			console.log(err);
-			return res.render('signup');
+			// req.flash("error", err);
+			req.flash("error", "A user with that email already exists.");
+			res.redirect('signup');
 		} else {
 			// A verification link is emailed to user
-			rand = Math.floor((Math.random() * 100) + 54);
 			host = req.get('host');
-			//host = "localhost:3000";
-			link ="http://"+host+"/verify?id="+rand;
+
+			// User ID is the database id
+			var userID = user.id;
+
+			// host = "localhost:3000";
+			
+			link ="http://"+host+"/verify/"+userID;
+
 			// setup email data
 			email = {
 				to : req.body.username,
 				subject : "Bookhunter: Please confirm your Email account",
 				html : "Hello,<br> Please Click on the link to verify your email for Bookhunter account.<br><a href="+link+">Click here to verify</a>"
 			};
-			console.log(email);
 			// send mail with defined transport object
 			transporter.sendMail(email, (error, info) => {
 					if (error) {
@@ -99,25 +122,26 @@ router.post('/signup', (req, res) => {
 					}
 					console.log('Message sent: %s', info.messageId);
 			});
+			req.flash("warning", "Please check your email to verify your account.")
+			res.redirect('login');
 		}
-		// Compare our stored ID (rand) with ID from URL
-    router.get('/verify', (req, res) => {
-	    console.log("verification...");
-	    // If they match then account is verified
-	    if(req.query.id == rand){
-	          console.log("email is verified");
-			      passport.authenticate('local');
-	          res.send('<h1>Email is successfully verified. You can now log in to Bookhunter.</h1>');
-	    // If they do not match then account is NOT verified
-	    } else {
-	          console.log("email is NOT verified");
-	          res.send('<h1>Bad Request</h1>');
-	          // return res.status(401).send({
-	          //    type: 'not-verified',
-	          //    msg: 'Your account has not been verified.'
-	          // });
-	    }
-    });
+	});
+});
+
+router.get('/verify/:id', (req, res) => {
+	// Search database for user by the id
+	User.findById(req.params.id, function(err, foundUser){
+		if (err) {
+			req.flash("error", JSON.stringify(err));
+			res.redirect('login');
+		} else {
+			//if user exists, set their verified value to true
+			passport.authenticate('local');
+			foundUser.verified = true;
+			foundUser.save();
+			req.flash("success", "Email verification successful.")
+			res.redirect('/login');
+		}
 	});
 });
 
@@ -128,10 +152,11 @@ router.get('/login', (req, res) => {
 });
 
 
-router.post('/login', passport.authenticate('local',
+router.post('/login', usernameToLowerCase, passport.authenticate('local',
 	{
-		successRedirect: '/profile', // Should redirect to books page when implemented
-		failureRedirect: 'login'
+		successRedirect: '/profile',
+		failureRedirect: 'login',
+		failureFlash: true
 	}), (req, res) => {
 
 });
@@ -140,11 +165,12 @@ router.post('/login', passport.authenticate('local',
 // Log out route
 router.get("/logout", function(req, res) {
 	req.logout();
+	req.flash("success", "Successfully logged out.");
 	res.redirect("/login");
 });
 
 // All Books route
-router.get('/allbooks', isLoggedIn, (req, res) => {
+router.get('/allbooks', isLoggedIn, isVerified, (req, res) => {
 	User.find({}, function(err, allUsers) {
 		if(err) {
 			console.log(err);
@@ -190,14 +216,14 @@ router.post('/send', (req, res) => {
       console.log('Message sent: %s', info.messageId);
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-			// rerender our home page with message
-			res.render('home', {msg: "Thank you! Email has been sent."});
+		// rerender our home page with message
+		res.render('home', {msg: "Thank you! Email has been sent."});
   });
 
 });
 
 // Testing profile page
-router.get('/profile', isLoggedIn, (req, res) => {
+router.get('/profile', isLoggedIn, isVerified, (req, res) => {
   User.find({}, function(err, allUsers) {
     if(err) {
       console.log(err);

@@ -10,6 +10,26 @@
                         <div class="card-body">
                             <!-- Form login -->
                             <form action="/login" method="POST">
+
+                                <!-- Flash messages -->
+                                {{#if error}}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{error}}
+                                    </div>
+                                {{/if}}
+
+                                {{#if success}}
+                                    <div class="alert alert-success" role="alert">
+                                        {{success}}
+                                    </div>
+                                {{/if}}
+
+                                {{#if warning}}
+                                    <div class="alert alert-warning" role="alert">
+                                        {{warning}}
+                                    </div>
+                                {{/if}}
+
                                 <p class="h4 text-center mb-4">Log in</p>
 
                                 <!-- Email / Username -->
