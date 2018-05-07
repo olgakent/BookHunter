@@ -3,15 +3,44 @@
 
 
     <div class="container">
-        <div class="row mt-4 mb-4">
+        <!-- SEARCH FORM -->
+        <div class="container search_book">
+          <div class="row">
+            <div class="col-lg-12">
+              <form action="/search" method="get">
+                  <div class="form-group">
+
+                    <!-- Grid row -->
+                    <div class="form-row">
+                          <div class="col">
+                              <div class="md-form">
+                                  <input type="text" name="title" class="change form-control" placeholder="Enter a book title that you want to add" >
+                              </div>
+                          </div>
+                    </div>
+
+                    <!-- Grid row -->
+                    <div class="form-row">
+                        <button type="submit" class="btn btn-outline-white waves-effect waves-light">Search</button>
+                    </div>
+
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- SEARCH FORM -->
+
+        <div class="row">
 
           {{#each books}}
-            <div class="col-md-3 mb-4">
+            <div class="col-md-3">
                 <div class="card">
                   <p class="card-header">{{this.title}}</p>
-                    <a href={{this.link}}>
-                      <img id="bookimage" class="center-block ml-4 mt-4 mb-4" style="height: 168px; width: 128px; display: block;"
-                                          src={{this.thumbnail}} alt="book image"></a>
+                    <div id="book-image-container">
+                      <a href={{this.link}}>
+                        <img id="bookimage" class="center-block" src={{this.thumbnail}} alt="book image"></a>
+                    </div>
                     <div class="card-block">
 
                       <form action="/toLibrary" method="post">
@@ -20,7 +49,7 @@
                         <input type="hidden" name="book_link" value="{{this.link}}">
                         <input type="hidden" name="book_publisher" value="{{this.publisher}}">
                         <input type="hidden" name="book_thumbnail" value="{{this.thumbnail}}">
-                        <input type="submit" class="card-link btn btn-primary btn-block" value="Add Book to your Library">
+                        <input type="submit" class="card-link btn-primary btn-block" value="Add Book to your Library">
 
                       </form>
                       <form action="/toWishlist" method="post">
@@ -28,7 +57,7 @@
                         <input type="hidden" name="book_title" value="{{this.title}}">
                         <input type="hidden" name="book_link" value="{{this.link}}">
                         <input type="hidden" name="book_thumbnail" value="{{this.thumbnail}}">
-                        <input type="submit" class="card-link btn btn-success btn-block" value="Add Book to your Wishlist ">
+                        <input type="submit" class="card-link btn-success btn-block" value="Add Book to your Wishlist ">
 
                         <!-- <a href="#" class="card-link btn btn-primary btn-block">Add Book</a> -->
 

@@ -1,34 +1,41 @@
-<div id="profile"  class="view">
-    <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
+<div id="profile"  class="view full-page-intro">
+    <div class="mask rgba-black-strong d-flex justify-content-center">
 
-      <div class="container">
+      <div class="container-fluid myBooks">
+
 
           <!-- SEARCH FORM -->
-          <form action="/search" method="get">
-              <div class="form-group">
+          <div class="container search_book">
+            <div class="row">
+              <div class="col-lg-12">
+                <form action="/search" method="get">
+                    <div class="form-group">
 
-                <!-- Grid row -->
-                <div class="form-row">
-                      <div class="col">
-                          <div class="md-form">
-                              <input type="text" name="title" class="change form-control" placeholder="Enter a book title that you want to add" >
-                          </div>
+                      <!-- Grid row -->
+                      <div class="form-row">
+                            <div class="col">
+                                <div class="md-form">
+                                    <input type="text" name="title" class="change form-control" placeholder="Enter a book title that you want to add" >
+                                </div>
+                            </div>
                       </div>
-                </div>
 
-                <!-- Grid row -->
-                <div class="form-row">
-                    <button type="submit" class="btn btn-outline-white waves-effect waves-light">Search</button>
-                </div>
+                      <!-- Grid row -->
+                      <div class="form-row">
+                          <button type="submit" class="btn btn-outline-white waves-effect waves-light">Search</button>
+                      </div>
 
+                    </div>
+                </form>
               </div>
-          </form>
+            </div>
+          </div>
           <!-- SEARCH FORM -->
 
 
           <!-- MY LIBRARY -->
           <div id="mylibrary" class="container">
-            <div id="book" class="mt-4">
+            <div id="book">
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -87,6 +94,14 @@
           </div>
           <!-- MY LIBRARY -->
 
+
+
+        
+
+
+            </div>
+          </div>
+          <!-- MY WISHLIST -->
         </div>
 
   <!-- </div> -->
