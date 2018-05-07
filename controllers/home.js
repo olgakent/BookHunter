@@ -201,22 +201,25 @@ router.post('/send', (req, res) => {
 
 // Testing profile page
 router.get('/profile', isLoggedIn, isVerified, (req, res) => {
-  // User.find({}, function(err, allUsers) {
-  //   if(err) {
-  //     console.log(err);
-  //   } else {
-  //     res.render("profile", {users: allUsers, currentUser: req.user});
-  //   }
-  // });
-	Book.find( {book_owner: req.user.id}, function(err, books){
-		if(err){
+
+	User.find({}, function(err, allUsers) {
+		if(err) {
 			console.log(err);
 		}
-		else {
-			console.log(books);
-			res.render("profile", { books: books });
-		}
-	});
+			Book.find( {book_owner: req.user.id}, function(err, books){
+				if(err){
+					console.log(err);
+				}
+				else {
+					// console.log(books);
+					res.render("profile", {
+						books: books,
+						users: allUsers,
+						currentUser: req.user
+					});
+				}
+			});
+	})
 });
 // Testing Add Book page
 // router.get('/addbook', isLoggedIn, (req, res) => {
