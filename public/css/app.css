@@ -94,11 +94,6 @@ header,
   margin: 100px 0px 0px 0px;
 }
 
-/* Buttons for addbook page */
-#book-input-buttons {
-  text-align: center;
-}
-
 /* White text input for search form on profile page */
 .change::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
@@ -124,5 +119,4 @@ header,
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }

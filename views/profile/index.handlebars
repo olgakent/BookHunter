@@ -1,4 +1,4 @@
-<div id="profile"  class="view full-page-intro">
+<div id="profile"  class="view">
     <div class="mask rgba-black-strong d-flex justify-content-center align-items-center">
 
       <div class="container">
@@ -48,7 +48,7 @@
                                   <tr>
                                     <th>Title</th>
                                     <th>Image</th> <!--image with a link to Google book description -->
-                                    <th>Authors</th>
+                                    <th>Publisher</th>
                                     <th>Remove this Book?</th>
                                   </tr>
                                 </thead>
@@ -56,32 +56,20 @@
 
                                 <!-- TABLE BODY-->
                                 <tbody>
-                                  <tr>
-                                    <td>Computer Organization</a></td>
-                                    <td>
-                                      <a href="https://books.google.com/books/about/Computer_Organization_Isrd.html?hl=&id=UegBxZnbYKEC" target="_blank">
-                                      <img src="http://books.google.com/books/content?id=MtT6rbd6IxIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" alt=""></a>
-                                    </td>
-                                    <td>Lee Galloway</td>
-                                    <td>
-                                      <!-- <form action="/profile/removeBook/{{this.id}}" method="post"> -->
-                                       <!-- <button type="submit" class="btn btn-outline-white waves-effect waves-light">Search</button> -->
-                                        <input type="submit" class="btn btn-outline-white waves-effect waves-light" value="Remove">
-                                      <!-- </form> -->
-                                    </td>
-                                  </tr>
-                                  <!-- {{#each books}}
+
+                                  {{#each books}}
                                     <tr>
-                                      <td><a href="{{this.link}}>" style="text-decoration: none;">{{this.title}}</a></td>
-                                      <td><img src={{this.thumbnail}} alt=""></td>
-                                      <td><img src={{this.authors}} alt=""></td>
+                                      <td>{{this.book_title}}</td>
+                                      <td><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
+                                      <td>{{this.book_publisher}}</td>
                                       <td>
-                                        <form action="/profile/removeBook/{{this.id}}" method="post">
-                                          <input type="submit" class="btn btn-outline-white waves-effect waves-light value="Remove">
+                                        <form action="/removeBook/{{this.id}}" method="post">
+                                          <input type="submit" class="btn btn-outline-white waves-effect waves-light" value="Remove">
                                         </form>
                                       </td>
                                     </tr>
-                                  {{/each}} -->
+                                  {{/each}}
+
                                 </tbody>
                                 <!-- TABLE BODY-->
                               </table>
@@ -101,5 +89,5 @@
 
         </div>
 
-  </div>
+  <!-- </div> -->
 </div>
