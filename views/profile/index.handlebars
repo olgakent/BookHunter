@@ -15,7 +15,7 @@
                       <div class="form-row">
                             <div class="col">
                                 <div class="md-form">
-                                    <input type="text" name="title" class="change form-control" placeholder="Enter a book title that you want to add" >
+                                    <input type="text" name="title" class="change form-control" placeholder="Enter a book title that you want to add" required>
                                 </div>
                             </div>
                       </div>
@@ -64,7 +64,7 @@
                                 <!-- TABLE BODY-->
                                 <tbody>
 
-                                  {{#each books}}
+                                  {{#each librarybooks}}
                                     <tr>
                                       <td>{{this.book_title}}</td>
                                       <td><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
@@ -89,6 +89,57 @@
                   </div>
 
 
+                  <div class="row">
+                      <div class="col-lg-12">
+                        <div class="panel panel-default">
+                          <!-- PANEL HEADING -->
+                          <div class="panel-heading bg-main-color">
+                            <h2 class="font-bold white-text mb-2">My Wishlist</h2>
+                          </div>
+                          <!-- PANEL HEADING -->
+
+                          <!-- PANEL BODY -->
+                          <div class="panel-body">
+                                <!-- TABLE OF BOOKS -->
+                                <table class="table table-striped table-hover font-bold white-text">
+                                  <!-- TABLE HEADING -->
+                                  <thead>
+                                    <tr>
+                                      <th>Title</th>
+                                      <th>Image</th> <!--image with a link to Google book description -->
+                                      <th>Publisher</th>
+                                      <th>Remove this Book?</th>
+                                    </tr>
+                                  </thead>
+                                  <!-- TABLE HEADING -->
+
+                                  <!-- TABLE BODY-->
+                                  <tbody>
+
+                                    {{#each wishlistbooks}}
+                                      <tr>
+                                        <td>{{this.book_title}}</td>
+                                        <td><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
+                                        <td>{{this.book_publisher}}</td>
+                                        <td>
+                                          <form action="/removeBook/{{this.id}}" method="post">
+                                            <input type="submit" class="btn btn-outline-white waves-effect waves-light" value="Remove">
+                                          </form>
+                                        </td>
+                                      </tr>
+                                    {{/each}}
+
+                                  </tbody>
+                                  <!-- TABLE BODY-->
+                                </table>
+                                <!-- TABLE OF BOOKS -->
+
+                          </div>
+                          <!-- PANEL BODY -->
+                        </div>
+                      </div>
+                    </div>
+
 
             </div>
           </div>
@@ -96,7 +147,9 @@
 
 
 
-        
+
+
+
 
 
             </div>

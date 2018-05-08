@@ -206,20 +206,29 @@ router.get('/profile', isLoggedIn, isVerified, (req, res) => {
 		if(err) {
 			console.log(err);
 		}
-			Book.find( {book_owner: req.user.id}, function(err, books){
+			Book.find( {book_owner: req.user.id, inLibrary: true}, function(err, librarybooks){
+
 				if(err){
 					console.log(err);
 				}
 				else {
-					// console.log(books);
-					res.render("profile", {
-						books: books,
-						users: allUsers,
-						currentUser: req.user
-					});
+					Book.find( {book_owner: req.user.id, inWishlist: true}, function(err, wishlistbooks){
+						if(err){
+								console.log(err);
+						}
+						else {// console.log(books);
+								res.render("profile", {
+								librarybooks: librarybooks,
+								wishlistbooks: wishlistbooks,
+								users: allUsers,
+								currentUser: req.user
+								});
+						}
+					})
 				}
 			});
-	})
+
+	});
 });
 // Testing Add Book page
 // router.get('/addbook', isLoggedIn, (req, res) => {
@@ -253,7 +262,9 @@ router.post('/toLibrary',isLoggedIn, function(req,res){
 		book_link: req.body.book_link,
 		book_publisher: req.body.book_publisher,
 	  book_thumbnail: req.body.book_thumbnail,
-		book_owner: req.user._id
+		book_owner: req.user._id,
+		inWishlist: false,
+		inLibrary: true
 	});
 
 	newBook.save(function(err){
@@ -285,7 +296,9 @@ router.post('/toWishlist',isLoggedIn, function(req,res){
 		book_link: req.body.book_link,
 		book_publisher: req.body.book_publisher,
 	  book_thumbnail: req.body.book_thumbnail,
-		book_owner: req.user._id
+		book_owner: req.user._id,
+		inWishlist: true,
+		inLibrary: false
 	});
 
 	newBook.save(function(err){
