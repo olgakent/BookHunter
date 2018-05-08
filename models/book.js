@@ -6,6 +6,7 @@ const BookSchema = new mongoose.Schema({
 	book_id: String,
   book_title: String,
   book_link: String,
+	book_publisher: String,
   book_thumbnail: String,
 	book_owner: [{
 		type: Schema.Types.ObjectId,

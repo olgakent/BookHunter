@@ -6,7 +6,8 @@ header,
 #login,
 #allbooks,
 #helppage,
-#addbook {
+#addbook,
+#profile {
     height: 100%;
 }
 
@@ -54,12 +55,14 @@ header,
 
 
 #profile {
-  min-height: 100%;
   background: url("/img/profile1.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+.myBooks {
+  overflow-y: scroll;
 }
 
 #search {
@@ -69,6 +72,15 @@ header,
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+#bookimage {
+  margin: 0 auto;
+  height: 168px;
+  width: 128px;
+  display: block;
+}
+#book-image-container {
+  padding: 10px 0;
 }
 
 #addbook{
@@ -88,15 +100,10 @@ header,
 
 /* For the allbooks card to have margin */
 .card {
-  margin: 80px 0px 80px 0px;
+  margin: 30px 0px;
 }
 #profile-books {
   margin: 100px 0px 0px 0px;
-}
-
-/* Buttons for addbook page */
-#book-input-buttons {
-  text-align: center;
 }
 
 /* White text input for search form on profile page */
@@ -117,4 +124,14 @@ header,
 .change:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
     color: #ffffff;
+}
+.change {
+  color: #ffffff !important;
+}
+
+.card-header{
+  height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
