@@ -322,4 +322,74 @@ router.post('/toWishlist',isLoggedIn, function(req,res){
 	})
 });
 
+//REMOVE A BOOK FROM USER'S LIBRARY
+router.post('/removeFromLibrary/:bookID', isLoggedIn, function(req, res){
+
+ var book_id = req.params.bookID;
+ //console.log(book_id);
+
+ User.findById(req.user._id, function(err, user){
+	 if(err){
+		 console.log(err);
+		 return;
+	 }
+	 //console.log(user);
+	 // Search book in user's library  by book_id and remove
+	 var bookIndex = user.library.indexOf(book_id);
+	 user.library.splice(bookIndex, 1);
+	 user.save(function(err){
+		 if(err){
+			 console.log(err);
+			 return;
+		 }
+		 Book.findByIdAndRemove(book_id, function(err, book){
+			 if(err){
+				 console.log(err);
+				 return;
+			 }
+			 //console.log(user);
+			 res.redirect('/profile');
+		 })
+	 })
+ })
+});
+
+//REMOVE A BOOK FROM USER'S WISHLIST
+router.post('/removeFromWishlist/:bookID', isLoggedIn, function(req, res){
+
+ var book_id = req.params.bookID;
+ console.log(book_id);
+
+ User.findById(req.user._id, function(err, user){
+	 if(err){
+		 console.log(err);
+		 return;
+	 }
+	 console.log(user);
+	 // Search book in user's wishlist by book_id and remove
+	 var bookIndex = user.wishlist.indexOf(book_id);
+	 user.wishlist.splice(bookIndex, 1);
+	 user.save(function(err){
+		 if(err){
+			 console.log(err);
+			 return;
+		 }
+		 Book.findByIdAndRemove(book_id, function(err, book){
+			 if(err){
+				 console.log(err);
+				 return;
+			 }
+			 console.log(user);
+			 res.redirect('/profile');
+		 })
+	 })
+ })
+});
+
+
+
+
+
+
+
 module.exports = router;
