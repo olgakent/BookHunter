@@ -235,6 +235,39 @@ router.get('/profile', isLoggedIn, isVerified, (req, res) => {
 //   res.render('addbook', {currentUser: req.user});
 // });
 
+//Change Profile Setting
+router.get('/settings', isLoggedIn, (req, res) => {
+	User.find({}, function(err, allUsers) {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render('settings', {users: allUsers, currentUser: req.user});
+		}
+	});
+});
+
+//Update Profile Setting
+router.post('/settings/:id', isLoggedIn, (req, res) => {
+  var id = req.params.id;
+	console.log(id);
+
+  var newFirstName = req.body.firstName;
+  var newLastName = req.body.lastName;
+
+  User.findByIdAndUpdate(id, {
+    first : newFirstName,
+    last: newLastName ,
+  }, {
+    new: true
+  },function(err, user){
+    if(err){
+      res.flash('settingMessage', 'There is an error. Please check your input or try again later!');
+      res.redirect('/');
+    }
+    res.redirect('/profile');
+  })
+});
+
 // SEARCH ROUTE FOR BOOKS TO ADD THEM TO THE LIBRARY
 router.get('/search', isLoggedIn, (req, res) => {
   var title = req.query.title;
