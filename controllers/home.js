@@ -214,13 +214,13 @@ router.get('/profile', isLoggedIn, isVerified, (req, res) => {
 						if(err){
 								console.log(err);
 						}
-						else {// console.log(books);
+						else {
 								res.render("profile", {
 								librarybooks: librarybooks,
 								wishlistbooks: wishlistbooks,
 								users: allUsers,
 								currentUser: req.user
-								});
+							});
 						}
 					})
 				}
