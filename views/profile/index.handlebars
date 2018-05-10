@@ -33,11 +33,12 @@
           <!-- SEARCH FORM -->
 
 
-          <!-- MY LIBRARY -->
+          <!-- LIBRARY AND WISHLIST -->
           <div id="mylibrary" class="container">
             <div id="book">
 
-                <div class="row">
+                  <!-- MY LIBRARY -->
+                  <div class="row">
                     <div class="col-lg-12">
                       <div class="panel panel-default">
                         <!-- PANEL HEADING -->
@@ -53,10 +54,10 @@
                                 <!-- TABLE HEADING -->
                                 <thead>
                                   <tr>
-                                    <th>Title</th>
-                                    <th>Image</th> <!--image with a link to Google book description -->
-                                    <th>Publisher</th>
-                                    <th>Remove this Book?</th>
+                                    <th class="th-title">Title</th>
+                                    <th class="th-thumbnail">Image</th> <!--image with a link to Google book description -->
+                                    <th class="th-publisher">Publisher</th>
+                                    <th class="th-button">Remove this Book?</th>
                                   </tr>
                                 </thead>
                                 <!-- TABLE HEADING -->
@@ -66,11 +67,11 @@
 
                                   {{#each librarybooks}}
                                     <tr>
-                                      <td>{{this.book_title}}</td>
-                                      <td><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
-                                      <td>{{this.book_publisher}}</td>
-                                      <td>
-                                        <form action="/removeBook/{{this.id}}" method="post">
+                                      <td class="td-title">{{this.book_title}}</td>
+                                      <td class="td-thumbnail"><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
+                                      <td class="td-publisher">{{this.book_publisher}}</td>
+                                      <td class="td-button">
+                                        <form action="/removeFromLibrary/{{this.id}}" method="post">
                                           <input type="submit" class="btn btn-outline-white waves-effect waves-light" value="Remove">
                                         </form>
                                       </td>
@@ -87,8 +88,10 @@
                       </div>
                     </div>
                   </div>
+                  <!-- MY LIBRARY -->
 
 
+                  <!-- MY WISHLIST -->
                   <div class="row">
                       <div class="col-lg-12">
                         <div class="panel panel-default">
@@ -105,10 +108,10 @@
                                   <!-- TABLE HEADING -->
                                   <thead>
                                     <tr>
-                                      <th>Title</th>
-                                      <th>Image</th> <!--image with a link to Google book description -->
-                                      <th>Publisher</th>
-                                      <th>Remove this Book?</th>
+                                      <th class="th-title">Title</th>
+                                      <th class="th-thumbnail">Image</th> <!--image with a link to Google book description -->
+                                      <th class="th-publisher">Publisher</th>
+                                      <th class="th-button">Remove this Book?</th>
                                     </tr>
                                   </thead>
                                   <!-- TABLE HEADING -->
@@ -118,11 +121,11 @@
 
                                     {{#each wishlistbooks}}
                                       <tr>
-                                        <td>{{this.book_title}}</td>
-                                        <td><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
-                                        <td>{{this.book_publisher}}</td>
-                                        <td>
-                                          <form action="/removeBook/{{this.id}}" method="post">
+                                        <td class="td-title">{{this.book_title}}</td>
+                                        <td class="td-thumbnail"><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
+                                        <td class="td-publisher">{{this.book_publisher}}</td>
+                                        <td class="td-button">
+                                          <form action="/removeFromWishlist/{{this.id}}" method="post">
                                             <input type="submit" class="btn btn-outline-white waves-effect waves-light" value="Remove">
                                           </form>
                                         </td>
@@ -138,24 +141,15 @@
                           <!-- PANEL BODY -->
                         </div>
                       </div>
-                    </div>
+                  </div>
+                    <!-- MY WISHLIST -->
 
 
             </div>
           </div>
-          <!-- MY LIBRARY -->
+          <!-- LIBRARY AND WISHLIST -->
+        
+      </div>
+  </div>
 
-
-
-
-
-
-
-
-            </div>
-          </div>
-          <!-- MY WISHLIST -->
-        </div>
-
-  <!-- </div> -->
 </div>

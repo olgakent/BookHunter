@@ -1,0 +1,48 @@
+<div id="settings" class="view full-page-intro">
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <!-- Center -->
+                <div class="col-md-6">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- SETTINGS FORM -->
+                            <form action="/settings/{{currentUser._id}}" method="POST">
+
+                                <p class="h4 text-center mb-4">Update your Profile</p>
+
+                                <!-- First Name -->
+                                <div class="md-form">
+                                    <i class="fa fa-user prefix light-blue-text"></i>
+                                    <input type="text" name="firstName" id="materialFormCardNameEx" class="form-control" placeholder="{{currentUser.first}}"required>
+                                    <label for="firstName" class="font-weight-light">First Name</label>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="md-form">
+                                    <i class="fa fa-user prefix light-blue-text"></i>
+                                    <input type="text" name="lastName" id="materialFormCardNameEx" class="form-control" placeholder="{{currentUser.last}}" required>
+                                    <label for="lastName" class="font-weight-light">Last Name</label>
+                                </div>
+
+
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-light-blue" type="submit">Update Profile</button>
+                                </div>
+                            </form>
+                              <!-- SETTINGS FORM -->
+
+                        </div>
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
