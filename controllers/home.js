@@ -150,7 +150,6 @@ router.get('/allbooks', isLoggedIn, isVerified, (req, res) => {
 		if(err){
 			console.log(err);
 		} else {
-			// Need to retrieve the usernames of all users who own the books
 			res.render("allbooks", {currentUser: req.user, libraryBooks: librarybooks});
 		}
 	});
