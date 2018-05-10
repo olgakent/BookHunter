@@ -66,20 +66,6 @@
                                     <input type="password" name="confirm_password" id="materialFormCardPasswordEx2" class="form-control validate" required>
                                     <label for="materialFormCardPasswordEx2" class="font-weight-light">Confirm password</label>
                                 </div>
-                                
-                                <script>
-                                    var password = document.getElementById("materialFormCardPasswordEx1"),
-                                        confirm_password = document.getElementById("materialFormCardPasswordEx2");
-                                    function validatePassword() {
-                                        if ((confirm_password.value!='')&&(password.value != confirm_password.value)) {
-                                            confirm_password.setCustomValidity("Passwords Don't Match");
-                                        } else {
-                                            confirm_password.setCustomValidity('');
-                                        }
-                                    }
-                                    password.oninput = validatePassword;
-                                    confirm_password.oninput = validatePassword;
-                                </script>
 
                                 <div class="text-center mt-4">
                                     <button class="btn btn-light-blue" type="submit">Register</button>
@@ -97,3 +83,5 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="js/confirmpw.js"></script>
