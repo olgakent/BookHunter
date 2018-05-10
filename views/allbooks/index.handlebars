@@ -20,21 +20,26 @@
                                   <p></p>
                               </div>
 
+
                               <div id="book-grid">
                               <!-- This area will populate the books that users claim they have in possesion -->
                                   <div class="card-deck">
-                                      {{#each users}}
-                                          {{#library}}
+                                      {{#each libraryBooks}}
                                           <!-- Create card for a book -->
                                               <div class="col-sm-3" id="book">
-                                                  <a href="#">
+                                                  <a href="#" tabindex="0" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="bottom" title="<b>{{this.book_title}}</b>" data-content="<div><b>Author(s):</b> {{this.book_author}}</div><div><b>Owned by: </b>{{this.book_owner.username}}</div>">
                                                       <div class="card mb-3">
-                                                          <img class="img-fluid" src={{thumbnail}}>
-                                                          <span class="hide-text">{{title}} {{author}}</span>
+                                                          <img class="img-fluid" src={{this.book_thumbnail}}>
+                                                          <span class="hide-text">
+                                                            {{this.book_title}} 
+                                                            {{this.book_author}}
+                                                            {{!-- {{#each this.book_author}}
+                                                              {{this}} 
+                                                            {{/each}}  --}}  
+                                                          </span>
                                                       </div>
                                                   </a>
                                               </div>
-                                          {{/library}}
                                       {{/each}}
                                   </div>
                               </div>
@@ -47,5 +52,5 @@
   </div>
 </div>
 
-
+<script type="text/javascript" src="js/popper.js"></script>
 <script type="text/javascript" src="js/search.js"></script>

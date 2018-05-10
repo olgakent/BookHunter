@@ -5,12 +5,17 @@ const Schema =  mongoose.Schema;
 const BookSchema = new mongoose.Schema({
   book_id: String,
   book_title: String,
+  book_author: [String],
   book_link: String,
   book_publisher: String,
   book_thumbnail: String,
-  book_owner: [{
+  book_owner: {
+      id: {
         type: Schema.Types.ObjectId,
-        ref: 'Book'}],
+        ref: 'Book'
+      },
+      username: String
+  },
   inWishlist: Boolean,
   inLibrary: Boolean
 });
