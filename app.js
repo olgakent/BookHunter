@@ -27,7 +27,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // Passport setup
 app.use(require('express-session')({
-	secret: "abc123",
+	secret: process.env.SECRET,
 	resave: false,
 	saveUninitialized: false
 }));
