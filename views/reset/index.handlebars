@@ -1,0 +1,66 @@
+<div id="settings" class="view full-page-intro">
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <!-- Center -->
+                <div class="col-md-6">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                          
+                          <!-- RESET PASSWORD FORM -->
+                         <form action="/reset/{{token}}" method="POST">
+
+                           <!-- Flash messages -->
+                           {{#if error}}
+                               <div class="alert alert-danger" role="alert">
+                                   {{error}}
+                               </div>
+                           {{/if}}
+
+                           {{#if success}}
+                               <div class="alert alert-success" role="alert">
+                                   {{success}}
+                               </div>
+                           {{/if}}
+
+                           {{#if warning}}
+                               <div class="alert alert-warning" role="alert">
+                                   {{warning}}
+                               </div>
+                           {{/if}}
+
+                             <p class="h4 text-center mb-4">Reset Password</p>
+
+                             <!-- New password -->
+                             <div class="md-form">
+                                 <i class="fa fa-lock prefix light-blue-text"></i>
+                                 <input type="password" name="password" id="materialFormLoginPasswordEx" class="form-control" required>
+                                 <label for="materialFormLoginPasswordEx">Please enter your new password here</label>
+                             </div>
+                             <!-- Confirm password -->
+                             <div class="md-form">
+                                 <i class="fa fa-lock prefix light-blue-text"></i>
+                                 <input type="password" name="confirm" id="materialFormLoginPasswordEx" class="form-control" required>
+                                 <label for="materialFormLoginPasswordEx">Confirm your new password</label>
+                             </div>
+
+                             <div class="text-center mt-4">
+                                 <button class="btn btn-light-blue" type="submit">Update Password</button>
+                             </div>
+                         </form>
+                           <!-- RESET PASSWORD FORM -->
+
+                        </div>
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+
+    </div>
+</div>

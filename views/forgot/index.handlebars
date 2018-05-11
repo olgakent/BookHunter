@@ -1,0 +1,62 @@
+<div id="settings" class="view full-page-intro">
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <!-- Center -->
+                <div class="col-md-6">
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                          
+                            <!-- FORGOT PASSWORD FORM -->
+                            <form action="/forgot" method="POST">
+
+                              <!-- Flash messages -->
+                              {{#if error}}
+                                  <div class="alert alert-danger" role="alert">
+                                      {{error}}
+                                  </div>
+                              {{/if}}
+
+                              {{#if success}}
+                                  <div class="alert alert-success" role="alert">
+                                      {{success}}
+                                  </div>
+                              {{/if}}
+
+                              {{#if warning}}
+                                  <div class="alert alert-warning" role="alert">
+                                      {{warning}}
+                                  </div>
+                              {{/if}}
+
+                                <p class="h4 text-center mb-4">Forgot Password</p>
+
+                                <!-- Email-->
+                                <div class="md-form">
+                                    <i class="fa fa-email prefix light-blue-text"></i>
+                                    <input type="text" name="email" id="materialFormCardNameEx" class="form-control" required>
+                                    <label for="email" class="font-weight-light">Please enter your @myhunter.cuny.edu email here</label>
+                                </div>
+
+
+
+                                <div class="text-center mt-4">
+                                    <button class="btn btn-light-blue" type="submit">Reset Password</button>
+                                </div>
+                            </form>
+                              <!-- FORGOT PASSWORD FORM -->
+
+                        </div>
+                    </div>
+                    <!-- Card -->
+
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
