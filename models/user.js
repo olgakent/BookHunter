@@ -7,8 +7,10 @@ const UserSchema = new mongoose.Schema({
 	verified: Boolean,
 	first: String,
 	last: String,
-	username: String,
+	username: {type: String, unique: true, required:true},
 	password: String,
+	resetPasswordToken: String,
+	resetPasswordExpires: Date, // token expires in 1 hour
 	library: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Book'

@@ -10,6 +10,7 @@
   "author": " Olga Kent, Matthew Vardi, Tony Jiang, Yoseff Cohen",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
     "dotenv": "^5.0.1",

@@ -56,6 +56,7 @@
                                   <tr>
                                     <th class="th-title">Title</th>
                                     <th class="th-thumbnail">Image</th> <!--image with a link to Google book description -->
+                                    <th class="th-publisher">Author</th>
                                     <th class="th-publisher">Publisher</th>
                                     <th class="th-button">Remove this Book?</th>
                                   </tr>
@@ -69,6 +70,7 @@
                                     <tr>
                                       <td class="td-title">{{this.book_title}}</td>
                                       <td class="td-thumbnail"><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
+                                      <td class="td-publisher">{{this.book_author}}</td>
                                       <td class="td-publisher">{{this.book_publisher}}</td>
                                       <td class="td-button">
                                         <form action="/removeFromLibrary/{{this.id}}" method="post">
@@ -123,9 +125,10 @@
                                       <tr>
                                         <td class="td-title">{{this.book_title}}</td>
                                         <td class="td-thumbnail"><a href={{this.book_link}}><img src={{this.book_thumbnail}}></a></td>
+                                        <td class="td-publisher">{{this.book_author}}</td>
                                         <td class="td-publisher">{{this.book_publisher}}</td>
                                         <td class="td-button">
-                                          <form action="/removeFromWishlist/{{this.id}}" method="post">
+                                          <form action="/removeFromLibrary/{{this.id}}" method="post">
                                             <input type="submit" class="btn btn-outline-white waves-effect waves-light" value="Remove">
                                           </form>
                                         </td>
@@ -148,7 +151,7 @@
             </div>
           </div>
           <!-- LIBRARY AND WISHLIST -->
-        
+
       </div>
   </div>
 

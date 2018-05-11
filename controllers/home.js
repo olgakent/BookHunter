@@ -6,6 +6,8 @@ const Book = require('../models/book');
 const books = require('google-books-search');
 const option = require('../config/bookAPI');
 const nodemailer = require('nodemailer');
+const async = require('async');
+const crypto = require('crypto');
 
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
@@ -265,6 +267,117 @@ router.post('/settings/:id', isLoggedIn, (req, res) => {
   })
 });
 
+// FORGOT PASSWORD ROUTE
+router.get('/forgot', (req, res) =>  {
+  res.render('forgot');
+});
+
+router.post('/forgot', function(req, res, next) {
+  async.waterfall([
+    function(done) {
+      crypto.randomBytes(20, function(err, buf) {
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function(token, done) {
+      User.findOne({ username: req.body.email }, function(err, user) {
+        if (!user) {
+          req.flash('error', 'No account with that email address exists.');
+          return res.redirect('/forgot');
+        }
+				else {
+					user.resetPasswordToken = token;
+					user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+					user.save(function(err) {
+						done(err, token, user);
+					});
+				}
+
+      });
+    },
+    function(token, user, done) {
+
+      var mailOptions = {
+        to: user.username,
+        from: 'bookhunter.huntercollege@gmail.com',
+        subject: 'BookHunter Password Reset',
+        text: 'You have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link to complete the process:\n\n' +
+          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+      };
+      transporter.sendMail(mailOptions, function(err) {
+        console.log('Reset password email was sent');
+        req.flash('success', 'An e-mail has been sent to ' + user.username + ' with further instructions.');
+        done(err, 'done');
+      });
+    }
+  ], function(err) {
+    if (err) return next(err);
+    res.redirect('/forgot');
+  });
+});
+
+
+// RESET PASSWORD ROUTE
+router.get('/reset/:token', (req, res) => {
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+      req.flash('error', 'Password reset token is invalid or has expired.');
+      return res.redirect('/forgot');
+    }
+		else {
+    	res.render('reset', {token: req.params.token});
+		}
+  });
+});
+
+router.post('/reset/:token', (req, res) => {
+  async.waterfall([
+    function(done) {
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+          req.flash('error', 'Password reset token is invalid or has expired.');
+          return res.redirect('/forgot');
+        }
+        if(req.body.password === req.body.confirm) {
+          user.setPassword(req.body.password, function(err) {
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+
+            user.save(function(err) {
+              req.logIn(user, function(err) {
+                done(err, user);
+              });
+            });
+          })
+        } else {
+            req.flash("error", "Passwords do not match.");
+            return res.redirect('back');
+        }
+      });
+    },
+    function(user, done) {
+
+      var mailOptions = {
+        to: user.username,
+        from: 'bookhunter.huntercollege@gmail.com',
+        subject: 'Your BookHunter password has been changed',
+        text: 'Hello,\n\n' +
+          'This is a confirmation that the password for your account ' + user.username + ' has just been changed.\n'
+      };
+      transporter.sendMail(mailOptions, function(err) {
+        req.flash('success', 'Success! Your password has been changed.');
+        done(err);
+      });
+    }
+  ], function(err) {
+    res.redirect('/profile');
+  });
+});
+
 // SEARCH ROUTE FOR BOOKS TO ADD THEM TO THE LIBRARY
 router.get('/search', isLoggedIn, (req, res) => {
   var title = req.query.title;
@@ -324,10 +437,10 @@ router.post('/toWishlist',isLoggedIn, function(req,res){
 	var newBook = new Book({
 		book_id: req.body.book_id,
 		book_title: req.body.book_title,
-		book_author: req.body.book_authors,
+		book_author: req.body.book_author,
 		book_link: req.body.book_link,
 		book_publisher: req.body.book_publisher,
-	  book_thumbnail: req.body.book_thumbnail,
+		book_thumbnail: req.body.book_thumbnail,
 		book_owner: {id: req.user._id, username: req.user.username},
 		inWishlist: true,
 		inLibrary: false
@@ -417,11 +530,6 @@ router.post('/removeFromWishlist/:bookID', isLoggedIn, function(req, res){
 	 })
  })
 });
-
-
-
-
-
 
 
 module.exports = router;

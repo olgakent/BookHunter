@@ -51,18 +51,16 @@
                         <input type="hidden" name="book_publisher" value="{{this.publisher}}">
                         <input type="hidden" name="book_thumbnail" value="{{this.thumbnail}}">
                         <input type="submit" class="card-link btn-primary btn-block" value="Add Book to your Library">
-
                       </form>
+
                       <form action="/toWishlist" method="post">
                         <input type="hidden" name="book_id" value="{{this.id}}">
                         <input type="hidden" name="book_title" value="{{this.title}}">
                         <input type="hidden" name="book_author" value="{{this.authors}}">
                         <input type="hidden" name="book_link" value="{{this.link}}">
+                        <input type="hidden" name="book_publisher" value="{{this.publisher}}">
                         <input type="hidden" name="book_thumbnail" value="{{this.thumbnail}}">
                         <input type="submit" class="card-link btn-success btn-block" value="Add Book to your Wishlist ">
-
-                        <!-- <a href="#" class="card-link btn btn-primary btn-block">Add Book</a> -->
-
                       </form>
                     </div>
                 </div>
