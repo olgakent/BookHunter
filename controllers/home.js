@@ -437,10 +437,10 @@ router.post('/toWishlist',isLoggedIn, function(req,res){
 	var newBook = new Book({
 		book_id: req.body.book_id,
 		book_title: req.body.book_title,
-		book_author: req.body.book_authors,
+		book_author: req.body.book_author,
 		book_link: req.body.book_link,
 		book_publisher: req.body.book_publisher,
-	  book_thumbnail: req.body.book_thumbnail,
+		book_thumbnail: req.body.book_thumbnail,
 		book_owner: {id: req.user._id, username: req.user.username},
 		inWishlist: true,
 		inLibrary: false
