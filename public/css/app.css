@@ -196,3 +196,8 @@ header,
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.img-fluid {
+  height: 240px;
+  width: 240px;
+}
