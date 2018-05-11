@@ -1,7 +1,7 @@
-<div class="full-page-intro">
-  <div id="allbooks">
-      <div class="justify-content-center align-items-center">
-          <div class="container">
+<div id="allbooks"  class="view full-page-intro">
+    <div class="mask rgba-black-light d-flex  justify-content-center">
+
+          <div class="container myBooks">
 
                   <!-- Center -->
                   <div class="col-md-12">
@@ -12,13 +12,14 @@
 
 
                               <!-- Search bar -->
-                              <div class="search-bar">
-                                  <form class="form-inline">
-                                      <i class="fa fa-search" aria-hidden="true"></i>
-                                      <input class="form-control form-control-sm ml-3 w-75" id="input" type="text" placeholder="Search for a book" aria-label="Search" onkeyup="searchBooks()">
-                                  </form>
-                                  <p></p>
+                              <div class="md-form">
+                                <form class="form-inline">
+                                  <i class="fa fa-search prefix"></i>
+                                  <input type="text" id="input" class="form-control"aria-label="Search" onkeyup="searchBooks()">
+                                  <label for="input">Search for a book</label>
+                                </form>
                               </div>
+                              <!-- Search bar -->
 
 
                               <div id="book-grid">
@@ -31,7 +32,7 @@
                                                       <div class="card mb-3">
                                                           <img class="img-fluid" src={{this.book_thumbnail}}>
                                                           <span class="hide-text">
-                                                            {{this.book_title}} 
+                                                            {{this.book_title}}
                                                             {{this.book_author}}
                                                           </span>
                                                       </div>
@@ -45,7 +46,7 @@
                       </div>
                   </div>
           </div>
-      </div>
+
   </div>
 </div>
 
