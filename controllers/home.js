@@ -201,21 +201,18 @@ router.post('/send', (req, res) => {
 
 // Testing profile page
 router.get('/profile', isLoggedIn, isVerified, (req, res) => {
-
 	User.find({}, function(err, allUsers) {
 		if(err) {
 			console.log(err);
-		}
+		} else {
 			Book.find( {"book_owner.id": req.user.id, inLibrary: true}, function(err, librarybooks){
-				if(err){
+				if(err) {
 					console.log(err);
-				}
-				else {
+				} else {
 					Book.find( {"book_owner.id": req.user.id, inWishlist: true}, function(err, wishlistbooks){
-						if(err){
+						if(err) {
 								console.log(err);
-						}
-						else {
+						} else {
 								res.render("profile", {
 								librarybooks: librarybooks,
 								wishlistbooks: wishlistbooks,
@@ -226,16 +223,39 @@ router.get('/profile', isLoggedIn, isVerified, (req, res) => {
 					})
 				}
 			});
-
+		}
 	});
 });
-// Testing Add Book page
-// router.get('/addbook', isLoggedIn, (req, res) => {
-//   res.render('addbook', {currentUser: req.user});
-// });
+
+router.get('/user/:id', isLoggedIn, isVerified, (req,res) => {
+	User.findById(req.params.id, function(err, foundUser) {
+		if(err) {
+			console.log(err);
+		} else {
+			Book.find( {"book_owner.id": req.params.id, inLibrary: true}, function(err, librarybooks){
+				if(err) {
+					console.log(err);
+				} else {
+					Book.find( {"book_owner.id": req.params.id, inWishlist: true}, function(err,wishlistbooks){
+						if(err) {
+							console.log(err);
+						} else {
+							res.render("user", {
+								foundUser: foundUser,
+								librarybooks: librarybooks,
+								wishlistbooks: wishlistbooks,
+								currentUser: req.user
+							});
+						}
+					});
+				}
+			}); 
+		}
+	});
+});
 
 //Change Profile Setting
-router.get('/settings', isLoggedIn, (req, res) => {
+router.get('/settings', isLoggedIn, isVerified, (req, res) => {
 	User.find({}, function(err, allUsers) {
 		if(err) {
 			console.log(err);
@@ -246,7 +266,7 @@ router.get('/settings', isLoggedIn, (req, res) => {
 });
 
 //Update Profile Setting
-router.post('/settings/:id', isLoggedIn, (req, res) => {
+router.post('/settings/:id', isLoggedIn, isVerified, (req, res) => {
   var id = req.params.id;
 	console.log(id);
 
@@ -379,7 +399,7 @@ router.post('/reset/:token', (req, res) => {
 });
 
 // SEARCH ROUTE FOR BOOKS TO ADD THEM TO THE LIBRARY
-router.get('/search', isLoggedIn, (req, res) => {
+router.get('/search', isLoggedIn, isVerified, (req, res) => {
   var title = req.query.title;
   // console.log(title);
   books.search(title, option, function(error, results, apiResponse){
@@ -398,7 +418,7 @@ router.get('/search', isLoggedIn, (req, res) => {
 });
 
 //ADD A BOOK TO USER'S LIBRARY
-router.post('/toLibrary',isLoggedIn, function(req,res){
+router.post('/toLibrary',isLoggedIn, isVerified, function(req,res){
 	var newBook = new Book({
 		book_id: req.body.book_id,
 		book_title: req.body.book_title,
@@ -433,7 +453,7 @@ router.post('/toLibrary',isLoggedIn, function(req,res){
 });
 
 //ADD A BOOK TO USER'S WISHLIST
-router.post('/toWishlist',isLoggedIn, function(req,res){
+router.post('/toWishlist', isLoggedIn, isVerified, function(req,res){
 	var newBook = new Book({
 		book_id: req.body.book_id,
 		book_title: req.body.book_title,
@@ -468,7 +488,7 @@ router.post('/toWishlist',isLoggedIn, function(req,res){
 });
 
 //REMOVE A BOOK FROM USER'S LIBRARY
-router.post('/removeFromLibrary/:bookID', isLoggedIn, function(req, res){
+router.post('/removeFromLibrary/:bookID', isLoggedIn, isVerified, function(req, res){
 
  var book_id = req.params.bookID;
  //console.log(book_id);
@@ -500,7 +520,7 @@ router.post('/removeFromLibrary/:bookID', isLoggedIn, function(req, res){
 });
 
 //REMOVE A BOOK FROM USER'S WISHLIST
-router.post('/removeFromWishlist/:bookID', isLoggedIn, function(req, res){
+router.post('/removeFromWishlist/:bookID', isLoggedIn, isVerified, function(req, res){
 
  var book_id = req.params.bookID;
  console.log(book_id);
