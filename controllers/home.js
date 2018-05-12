@@ -201,26 +201,19 @@ router.post('/send', (req, res) => {
 
 // Testing profile page
 router.get('/profile', isLoggedIn, isVerified, (req, res) => {
-	User.find({}, function(err, allUsers) {
+	Book.find( {"book_owner.id": req.user.id, inLibrary: true}, function(err, librarybooks){
 		if(err) {
 			console.log(err);
 		} else {
-			Book.find( {"book_owner.id": req.user.id, inLibrary: true}, function(err, librarybooks){
+			Book.find( {"book_owner.id": req.user.id, inWishlist: true}, function(err, wishlistbooks){
 				if(err) {
 					console.log(err);
 				} else {
-					Book.find( {"book_owner.id": req.user.id, inWishlist: true}, function(err, wishlistbooks){
-						if(err) {
-								console.log(err);
-						} else {
-								res.render("profile", {
-								librarybooks: librarybooks,
-								wishlistbooks: wishlistbooks,
-								users: allUsers,
-								currentUser: req.user
-							});
-						}
-					})
+					res.render("profile", {
+						librarybooks: librarybooks,
+						wishlistbooks: wishlistbooks,
+						currentUser: req.user
+					});
 				}
 			});
 		}
