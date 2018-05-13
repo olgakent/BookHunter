@@ -28,7 +28,15 @@
                                       {{#each libraryBooks}}
                                           <!-- Create card for a book -->
                                               <div class="col-sm-3" id="book">
-                                                  <a href="javascript://" tabindex="0" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="bottom" title="<b>{{this.book_title}}</b>" data-content="<div><b>Author(s):</b> {{this.book_author}}</div><div><b>Owned by: </b>{{this.book_owner.username}}</div>">
+                                                  <a href="javascript://" tabindex="0" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="bottom" title="<b>{{this.book_title}}</b>" 
+                                                    data-content="
+                                                    <div>
+                                                      <b>Author(s): </b>{{this.book_author}}
+                                                    </div>
+                                                    <div>
+                                                      <b>Owned by: </b><a href='/user/{{this.book_owner.id}}'>{{this.book_owner.username}}</a>
+                                                    </div>">
+
                                                       <div class="card mb-3">
                                                           <img class="img-fluid" src={{this.book_thumbnail}}>
                                                           <span class="hide-text">
