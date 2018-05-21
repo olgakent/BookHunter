@@ -51,7 +51,7 @@ app.use(function(req, res, next){
 
 
 // Serve up static assets from public folder
-app.use(express.static('./public'));
+app.use(express.static(__dirname + "/public"));
 
 // Set up handlebars (use templates from views/)
 const exphbs = require('express-handlebars');
