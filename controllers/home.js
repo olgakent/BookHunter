@@ -242,7 +242,7 @@ router.get('/user/:id', isLoggedIn, isVerified, (req,res) => {
 						}
 					});
 				}
-			}); 
+			});
 		}
 	});
 });
