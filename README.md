@@ -1,8 +1,7 @@
-<p align="left">
-  <img src="https://cdn-images-1.medium.com/max/1024/1*YLlZ96J3p8GFkIh1USVMzg.jpeg" width="350"/>
-</p>
 
 # BookHunter
+
+https://bookhuntercollege.herokuapp.com
 
 Capstone (CSCI499) Project for Computer Science at Hunter College
 
@@ -13,8 +12,19 @@ Capstone (CSCI499) Project for Computer Science at Hunter College
 
 ***
 
-<p align="center"><img src="screenshots/homepage.png" alt="homepage" width=100%></p>
+<p align="center"><img src="screenshots/homepage.png" alt="homepage" width=80%></p>
 
+### Profile
+
+<p align="center"><img src="screenshots/profile.png" alt="profile" width=80%></p>
+
+### Search
+
+<p align="center"><img src="screenshots/search.png" alt="search" width=80%></p>
+
+### All Books
+
+<p align="center"><img src="screenshots/allbooks.png" alt="allbooks" width=80%></p>
 
 
 ## __Team Members__
