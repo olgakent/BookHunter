@@ -20,7 +20,7 @@ Capstone (CSCI499) Project for Computer Science at Hunter College
 
 ### Search
 
-<p align="center"><img src="screenshots/search.png" alt="search" width=80%></p>
+<p align="center"><img src="screenshots/searchbooks.png" alt="search" width=80%></p>
 
 ### All Books
 
