@@ -18,7 +18,7 @@ dotenv.load();
 const mongoose = require('mongoose');
 const User = require('./models/user');
 
-//mongoose.connect('mongodb://localhost/BookHunter');
+// mongoose.connect('mongodb://localhost/BookHunter');
 mongoose.connect(process.env.MLAB_DB);
 
 // User auth

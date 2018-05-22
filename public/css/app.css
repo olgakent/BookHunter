@@ -12,6 +12,10 @@ header,
     height: 100%;
 }
 
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 #intro {
     background: url("/img/book_background.png") no-repeat center center fixed;
     -webkit-background-size: cover;
